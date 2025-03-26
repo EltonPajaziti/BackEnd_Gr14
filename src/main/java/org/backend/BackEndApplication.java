@@ -11,3 +11,5 @@ public class BackEndApplication {
     }
 
 }
+//u be lidhja me databaze dhe poashtu konfigurimet per JPA
+// Konfigurimet e bera gjenden ne resources/application.properties
