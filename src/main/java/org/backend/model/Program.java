@@ -50,20 +50,14 @@ public class Program {
         this.level = level;
     }
 
-    /*
-
     public Department getDepartment() {
-        //return department;
+        return department;
     }
 
 
     public void setDepartment(Department department) {
         this.department = department;
     }
-
-    Pasi te shtohet modeli Department
-
-    */
 
     public int getTenantId(){
         return tenantId;
