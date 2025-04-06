@@ -42,7 +42,7 @@ public class ProgramService {
         program.setName(updatedProgram.getName());
         program.setLevel(updatedProgram.getLevel());
         program.setTenantId(updatedProgram.getTenantId());
-        //program.setDepartment(updatedProgram.getDepartment());
+        program.setDepartment(updatedProgram.getDepartment());
 
         return programRepository.save(program);
     }
@@ -50,9 +50,8 @@ public class ProgramService {
         programRepository.deleteById(id);
     }
 
-    /*public List<Program> getProgramsByDepartmentId(Long departmentId) {
+   public List<Program> getProgramsByDepartmentId(Long departmentId) {
         return programRepository.findByDepartmentId(departmentId);
     }
-    Pasi te shtohet modeli Department
-    */
+
 }
