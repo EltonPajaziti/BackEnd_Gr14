@@ -17,9 +17,9 @@ public class Program {
     @Column(name = "level", length = 50, nullable = false)
     private String level;
 
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "department_id", nullable = false)
-    //private Department department;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id", nullable = false)
+    private Department department;
 
     @Column(name = "tenant_id")
     private Integer tenantId;
