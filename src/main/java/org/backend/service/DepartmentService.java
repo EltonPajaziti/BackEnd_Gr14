@@ -2,6 +2,7 @@ package org.backend.service;
 
 import org.backend.model.Department;
 import org.backend.repository.DepartmentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +10,7 @@ import java.util.Optional;
 @Service
 public class DepartmentService {
 
+    @Autowired
     private  final DepartmentRepository departmentRepository;
 
     public DepartmentService(DepartmentRepository departmentRepository){
