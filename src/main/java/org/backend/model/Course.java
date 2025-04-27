@@ -82,8 +82,8 @@ public class Course {
         this.program = program;
     }
 
-    public Faculty getTenant() { return tenant; }
-    public void setTenant(Faculty tenant) { this.tenant = tenant; }
+    public Faculty getTenant() { return tenantID; }
+    public void setTenant(Faculty tenantID) { this.tenantID = tenantID; }
 
 
     public String getDescription() {return description;}
