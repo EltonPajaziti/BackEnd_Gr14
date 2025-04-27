@@ -48,11 +48,10 @@ public class ProgramController {
         programService.deleteProgram(id);
     }
 
-    /*
+
     @GetMapping("/department/{departmentId}")
-    public List<Program> getProgramsByDepartment(@PathVariable Long departmentId) {
+    public List<Program> getProgramsByDepartmentId(@PathVariable Long departmentId) {
     return programService.getProgramsByDepartmentId(departmentId);
     }
-    Pasi te shtohet modeli Department
-    */
+
 }

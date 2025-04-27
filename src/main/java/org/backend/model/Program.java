@@ -17,9 +17,9 @@ public class Program {
     @Column(name = "level", length = 50, nullable = false)
     private String level;
 
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "department_id", nullable = false)
-    //private Department department;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id", nullable = false)
+    private Department department;
 
     @Column(name = "tenant_id")
     private Integer tenantId;
@@ -50,20 +50,14 @@ public class Program {
         this.level = level;
     }
 
-    /*
-
     public Department getDepartment() {
-        //return department;
+        return department;
     }
 
 
     public void setDepartment(Department department) {
         this.department = department;
     }
-
-    Pasi te shtohet modeli Department
-
-    */
 
     public int getTenantId(){
         return tenantId;

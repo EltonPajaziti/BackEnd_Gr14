@@ -9,7 +9,7 @@ public interface ProgramRepository extends JpaRepository<Program, Long> {
 
     Program findProgramByName(String name);
     Program findProgramByLevel(String level);
-    //List<Program> findByDepartmentId(Long departmentId); Pasi te shtohet modeli Department
+    List<Program> findByDepartmentId(Long departmentId);
 
 
 }
