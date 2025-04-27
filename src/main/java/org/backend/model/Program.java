@@ -21,8 +21,9 @@ public class Program {
     //@JoinColumn(name = "department_id", nullable = false)
     //private Department department;
 
-    @Column(name = "tenant_id")
-    private Integer tenantId;
+    @ManyToOne
+    @JoinColumn(name = "tenant_id", referencedColumnName = "id")
+    private Faculty tenantID;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -59,12 +60,8 @@ public class Program {
         this.department = department;
     }
 
-    public int getTenantId(){
-        return tenantId;
-    }
-    public void setTenantId(int tenantId){
-        this.tenantId = tenantId;
-    }
+    public Faculty getTenantID() { return tenantID; }
+    public void setTenantID(Faculty tenantID) { this.tenantID = tenantID; }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
