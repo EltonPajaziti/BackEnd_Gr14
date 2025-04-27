@@ -28,8 +28,8 @@ public class EnrollmentService {
 
     public Enrollment updateEnrollment(Long id, Enrollment updatedEnrollment) {
         Enrollment enrollment = enrollmentRepository.findById(id).orElseThrow();
-        enrollment.setStudent(updatedEnrollment.getStudent());
-        enrollment.setCourse(updatedEnrollment.getCourse());
+        enrollment.setStudentId(updatedEnrollment.getStudentId());
+        enrollment.setCourseId(updatedEnrollment.getCourseId());
         enrollment.setEnrollmentDate(updatedEnrollment.getEnrollmentDate());
         enrollment.setAcademicYear(updatedEnrollment.getAcademicYear());
         enrollment.setTenantId(updatedEnrollment.getTenantId());
