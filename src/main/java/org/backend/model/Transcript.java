@@ -12,55 +12,37 @@ public class Transcript {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "student_name", nullable = false, length = 100)
-    private String studentName;
+   
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id", referencedColumnName = "id", nullable = false)
+    private Student student;
 
-    @Column(name = "registration_number", nullable = false, unique = true, length = 50)
-    private String registrationNumber;
-
-    @Column(name = "program_name", nullable = false, length = 100)
-    private String programName;
-
-    @Column(name = "issued_date", nullable = false)
-    private LocalDateTime issuedDate;
-
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    @Column(name = "generated_at")
+    private LocalDateTime generatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tenant_id", referencedColumnName = "id")
-    private Faculty tenantID;
+    @JoinColumn(name = "tenant_id", referencedColumnName = "id", nullable = false)
+    private Faculty tenant;
 
-    public Transcript() {}
-
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-        if (this.issuedDate == null) {
-            this.issuedDate = LocalDateTime.now();
-        }
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "academic_year_id", referencedColumnName = "id", nullable = false)
+    private AcademicYear academicYear;
 
     // Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public String getStudentName() { return studentName; }
-    public void setStudentName(String studentName) { this.studentName = studentName; }
+    public Student getStudent() { return student; }
+    public void setStudent(Student student) { this.student = student; }
 
-    public String getRegistrationNumber() { return registrationNumber; }
-    public void setRegistrationNumber(String registrationNumber) { this.registrationNumber = registrationNumber; }
+     public LocalDateTime getGeneratedAt() { return generatedAt; }
+    public void setGeneratedAt(LocalDateTime generatedAt) { this.generatedAt = generatedAt; }
 
-    public String getProgramName() { return programName; }
-    public void setProgramName(String programName) { this.programName = programName; }
+    public Faculty getTenant() { return tenant; }
+    public void setTenant(Faculty tenant) { this.tenant = tenant; }
 
-    public LocalDateTime getIssuedDate() { return issuedDate; }
-    public void setIssuedDate(LocalDateTime issuedDate) { this.issuedDate = issuedDate; }
+    public AcademicYear getAcademicYear() { return academicYear; }
+    public void setAcademicYear(AcademicYear academicYear) { this.academicYear = academicYear; }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
-
-    public Faculty getTenantID() { return tenantID; }
-    public void setTenantID(Faculty tenantID) { this.tenantID = tenantID; }
 
 }
