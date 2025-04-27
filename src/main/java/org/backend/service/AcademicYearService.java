@@ -45,7 +45,7 @@ public class AcademicYearService {
     }
 
     public List<AcademicYear> getByTenantId(Long tenantId) {
-        return academicYearRepository.findByTenantId(tenantId);
+        return academicYearRepository.findByTenantID_Id(tenantId);
     }
 
     public List<AcademicYear> getActiveYears() {
