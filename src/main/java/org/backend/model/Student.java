@@ -1,26 +1,27 @@
 package org.backend.model;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "students")
 public class Student {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "idgit checkout main\n")
+    private Users user;
 
-    @Column(name = "program_id", nullable = false)
-    private Long programId;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "program_id", referencedColumnName = "id")
+    private Program program;
 
-    @Column(name = "tenant_id")
-    private Integer tenantId;
+    @ManyToOne
+    @JoinColumn(name = "tenant_id", referencedColumnName = "id")
+    private Faculty tenantID;
 
     @Column(name = "enrollment_date")
     private LocalDate enrollmentDate;
@@ -44,61 +45,19 @@ public class Student {
         this.updatedAt = LocalDateTime.now();
     }
 
-    // Getters and Setters
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getProgramId() {
-        return programId;
-    }
-
-    public void setProgramId(Long programId) {
-        this.programId = programId;
-    }
-
-    public Integer getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(Integer tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public LocalDate getEnrollmentDate() {
-        return enrollmentDate;
-    }
-
-    public void setEnrollmentDate(LocalDate enrollmentDate) {
-        this.enrollmentDate = enrollmentDate;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+    // Getters & Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public Users getUser() { return user; }
+    public void setUser(Users user) { this.user = user; }
+    public Program getProgram() { return program; }
+    public void setProgram(Program program) { this.program = program; }
+    public Faculty getTenantID() { return tenantID; }
+    public void setTenantID(Faculty tenantID) { this.tenantID = tenantID; }
+    public LocalDate getEnrollmentDate() { return enrollmentDate; }
+    public void setEnrollmentDate(LocalDate enrollmentDate) { this.enrollmentDate = enrollmentDate; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
 }
