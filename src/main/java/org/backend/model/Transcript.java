@@ -28,15 +28,6 @@ public class Transcript {
     @JoinColumn(name = "academic_year_id", referencedColumnName = "id", nullable = false)
     private AcademicYear academicYear;
 
-    public Transcript() {}
-
-    @PrePersist
-    protected void onCreate() {
-      protected void onCreate() {
-        this.generatedAt = LocalDateTime.now();
-        }
-    }
-
     // Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -52,5 +43,6 @@ public class Transcript {
 
     public AcademicYear getAcademicYear() { return academicYear; }
     public void setAcademicYear(AcademicYear academicYear) { this.academicYear = academicYear; }
+
 
 }
