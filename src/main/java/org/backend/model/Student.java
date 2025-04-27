@@ -1,50 +1,38 @@
 package org.backend.model;
-
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 @Entity
 @Table(name = "students")
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToOne(optional = false)
-    @JoinColumn(name = "user_id", referencedColumnName = "idgit checkout main\n")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private Users user;
-
     @ManyToOne(optional = false)
     @JoinColumn(name = "program_id", referencedColumnName = "id")
     private Program program;
-
     @ManyToOne
     @JoinColumn(name = "tenant_id", referencedColumnName = "id")
     private Faculty tenantID;
-
     @Column(name = "enrollment_date")
     private LocalDate enrollmentDate;
-
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
-
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
     public Student() {}
-
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
-
     @PreUpdate
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
-
     // Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -60,4 +48,5 @@ public class Student {
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
     public LocalDateTime getUpdatedAt() { return updatedAt; }
     public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+
 }
