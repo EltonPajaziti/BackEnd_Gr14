@@ -18,6 +18,10 @@ public class Department {
     @JoinColumn(name = "faculty_id", referencedColumnName = "id")
     private Faculty faculty;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tenant_id", referencedColumnName = "id")
+    private Faculty tenantID;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
@@ -45,6 +49,9 @@ public class Department {
     public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
     }
+
+    public Faculty getTenantID() { return tenantID; }
+    public void setTenantID(Faculty tenantID) { this.tenantID = tenantID; }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
