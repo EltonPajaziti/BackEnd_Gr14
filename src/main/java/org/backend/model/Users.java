@@ -31,7 +31,7 @@ public class Users {
     private String address;
 
     @Column(length = 1)
-    private String gender; // "M" ose "F"
+    private String gender;
 
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
@@ -43,7 +43,7 @@ public class Users {
     private String profilePicture;
 
     @Column(length = 20)
-    private String role; // student, admin, etc.
+    private String role;
 
     @Column(name = "last_login")
     private LocalDateTime lastLogin;
@@ -51,139 +51,66 @@ public class Users {
     @Column(length = 255, nullable = false)
     private String password;
 
-    @Column(name = "tenant_id")
-    private Integer tenantId;
+    @ManyToOne
+    @JoinColumn(name = "tenant_id", referencedColumnName = "id")
+    private Faculty tenantID;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     public Users() {}
 
-    public Long getId() {
-        return id;
-    }
+    // Getters & Setters
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public String getfirstName(){
-        return firstName;
-    }
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
 
-    public void setfirstName(String firstName){
-        this.firstName=firstName;
-    }
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
 
-    public String getlastName(){
-        return lastName;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public void setlastName(String lastName){
-        this.lastName=lastName;
-    }
+    public String getAltEmail() { return altEmail; }
+    public void setAltEmail(String altEmail) { this.altEmail = altEmail; }
 
-    public String getemail(){
-        return email;
-    }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
 
-    public void setemail(String email){
-        this.email=email;
-    }
-    public String getAltEmailmail(){
-        return altEmail;
-    }
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
 
-    public void setAltEmailemail(String altEmail){
-        this.altEmail=altEmail;
-    }
-    public String getPhone() {
-        return phone;
-    }
+    public String getGender() { return gender; }
+    public void setGender(String gender) { this.gender = gender; }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+    public LocalDate getDateOfBirth() { return dateOfBirth; }
+    public void setDateOfBirth(LocalDate dateOfBirth) { this.dateOfBirth = dateOfBirth; }
 
-    public String getAddress() {
-        return address;
-    }
+    public String getNationalId() { return nationalId; }
+    public void setNationalId(String nationalId) { this.nationalId = nationalId; }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+    public String getProfilePicture() { return profilePicture; }
+    public void setProfilePicture(String profilePicture) { this.profilePicture = profilePicture; }
 
-    public String getGender() {
-        return gender;
-    }
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
+    public LocalDateTime getLastLogin() { return lastLogin; }
+    public void setLastLogin(LocalDateTime lastLogin) { this.lastLogin = lastLogin; }
 
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
+    public Faculty getTenantID() { return tenantID; }
+    public void setTenantID(Faculty tenantID) { this.tenantID = tenantID; }
 
-    public String getNationalId() {
-        return nationalId;
-    }
-
-    public void setNationalId(String nationalId) {
-        this.nationalId = nationalId;
-    }
-
-    public String getProfilePicture() {
-        return profilePicture;
-    }
-
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public LocalDateTime getLastLogin() {
-        return lastLogin;
-    }
-
-    public void setLastLogin(LocalDateTime lastLogin) {
-        this.lastLogin = lastLogin;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Integer getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(Integer tenantId) {
-        this.tenantId = tenantId;
-    }
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
+    public LocalDateTime getCreatedAt() { return createdAt; }
 
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
-
-
 }
