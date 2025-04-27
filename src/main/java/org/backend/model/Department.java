@@ -18,8 +18,14 @@
         @JoinColumn(name = "faculty_id", referencedColumnName = "id")
         private Faculty faculty;
 
-        @Column(name = "created_at")
-        private LocalDateTime createdAt;
+ KAN-9-Krijimi-i-modelit-Department
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tenant_id", referencedColumnName = "id")
+    private Faculty tenantID;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
 
         public Department(){}
 
@@ -45,6 +51,14 @@
         public void setFaculty(Faculty faculty) {
             this.faculty = faculty;
         }
+
+ KAN-9-Krijimi-i-modelit-Department
+    public Faculty getTenantID() { return tenantID; }
+    public void setTenantID(Faculty tenantID) { this.tenantID = tenantID; }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 
         public LocalDateTime getCreatedAt() {
             return createdAt;
