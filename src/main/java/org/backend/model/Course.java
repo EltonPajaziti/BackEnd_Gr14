@@ -32,8 +32,9 @@ public class Course {
     @JoinColumn(name = "program_id")
     private Program program;
 
-    @Column(name = "tenant_id")
-    private Integer tenantId;
+    @ManyToOne
+    @JoinColumn(name = "tenant_id", referencedColumnName = "id")
+    private Faculty tenantID;
 
     @Column(name = "description")
     private String description;
@@ -81,10 +82,9 @@ public class Course {
         this.program = program;
     }
 
-    public Integer getTenantId() {return tenantId;}
-    public void setTenantId(Integer tenantId) {
-        this.tenantId = tenantId;
-    }
+    public Faculty getTenant() { return tenant; }
+    public void setTenant(Faculty tenant) { this.tenant = tenant; }
+
 
     public String getDescription() {return description;}
     public void setDescription(String description) {
