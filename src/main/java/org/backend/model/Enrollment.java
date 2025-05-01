@@ -23,7 +23,11 @@ public class Enrollment {
     private AcademicYear academicYear;
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "tenant_id", referencedColumnName = "id")
+<<<<<<< HEAD
     private Faculty tenantID;
+=======
+    private Faculty tenant;
+>>>>>>> main
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
@@ -46,8 +50,13 @@ public class Enrollment {
     public void setEnrollmentDate(LocalDate enrollmentDate) { this.enrollmentDate = enrollmentDate; }
     public AcademicYear getAcademicYear() { return academicYear; }
     public void setAcademicYear(AcademicYear academicYear) { this.academicYear = academicYear; }
+<<<<<<< HEAD
     public Faculty getTenantID() { return tenantID; }
     public void setTenantID(Faculty tenantID) { this.tenantID = tenantID; }
+=======
+    public Faculty getTenant() { return tenant; }
+    public void setTenant(Faculty tenant) { this.tenant = tenant; }
+>>>>>>> main
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }

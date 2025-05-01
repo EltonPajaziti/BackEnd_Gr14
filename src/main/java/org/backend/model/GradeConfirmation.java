@@ -5,7 +5,10 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+<<<<<<< HEAD
 import org.backend.enums.ConfirmationStatus;
+=======
+>>>>>>> main
 
 @Entity
 @Table(name = "grade_confirmation")
@@ -22,6 +25,7 @@ public class GradeConfirmation {
     @JoinColumn(name = "student_id", referencedColumnName = "id")
     private Student student;
 
+<<<<<<< HEAD
 //    @Column(name = "status")
 //    private Boolean status;
 //    //Enum pasi të kryhen edhe migrimet
@@ -32,6 +36,14 @@ private ConfirmationStatus status;
 
     @Column(name = "expires_at")
     private LocalDate expiresAt;
+=======
+    @Column(name = "status")
+    private Boolean status;
+    //Enum pasi të kryhen edhe migrimet
+
+    @Column(name = "expiers_at")
+    private LocalDate expiersAt;
+>>>>>>> main
 
     @Column(name = "responded_at")
     private LocalDate respondedAt;
@@ -64,6 +76,7 @@ private ConfirmationStatus status;
         this.student = student;
     }
 
+<<<<<<< HEAD
     public ConfirmationStatus getStatus() {
         return status;
     }
@@ -79,6 +92,22 @@ private ConfirmationStatus status;
 
     public void setExpiresAt(LocalDate expiresAt) {
         this.expiresAt = expiresAt;
+=======
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public LocalDate getExpiersAt() {
+        return expiersAt;
+    }
+
+    public void setExpiersAt(LocalDate expiersAt) {
+        this.expiersAt = expiersAt;
+>>>>>>> main
     }
 
     public LocalDate getRespondedAt() {

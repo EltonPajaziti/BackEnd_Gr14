@@ -30,12 +30,21 @@ public class EnrollmentService {
         Enrollment enrollment = enrollmentRepository.findById(id).orElseThrow();
 
         //ERROR DUHET ME E PERMIRESU
+<<<<<<< HEAD
                 enrollment.setStudent(updatedEnrollment.getStudent());
         enrollment.setCourse(updatedEnrollment.getCourse());
         enrollment.setEnrollmentDate(updatedEnrollment.getEnrollmentDate());
         enrollment.setAcademicYear(updatedEnrollment.getAcademicYear());
 
         enrollment.setTenantID(updatedEnrollment.getTenantID());
+=======
+        //        enrollment.setStudentId(updatedEnrollment.getStudentId());
+//        enrollment.setCourseId(updatedEnrollment.getCourseId());
+        enrollment.setEnrollmentDate(updatedEnrollment.getEnrollmentDate());
+        enrollment.setAcademicYear(updatedEnrollment.getAcademicYear());
+        //ERROR DUHET ME E PERMIRESU
+//        enrollment.setTenantId(updatedEnrollment.getTenantId());
+>>>>>>> main
         return enrollmentRepository.save(enrollment);
     }
 

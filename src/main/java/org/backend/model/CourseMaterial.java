@@ -25,7 +25,11 @@ public class CourseMaterial {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tenant_id", referencedColumnName = "id", nullable = false)
+<<<<<<< HEAD
     private Faculty tenantID;
+=======
+    private Faculty tenant;
+>>>>>>> main
 
     public CourseMaterial() {}
 
@@ -50,6 +54,11 @@ public class CourseMaterial {
     public LocalDateTime getUploadedAt() { return uploadedAt; }
     public void setUploadedAt(LocalDateTime uploadedAt) { this.uploadedAt = uploadedAt; }
 
+<<<<<<< HEAD
     public Faculty getTenant() { return tenantID; }
     public void setTenant(Faculty tenantID) { this.tenantID = tenantID; }
+=======
+    public Faculty getTenant() { return tenant; }
+    public void setTenant(Faculty tenant) { this.tenant = tenant; }
+>>>>>>> main
 }
