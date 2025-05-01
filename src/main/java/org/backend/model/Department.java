@@ -14,13 +14,7 @@ public class Department {
     @Column(name = "name", length = 100, nullable = false)
     private String name;
 
-<<<<<<< HEAD
 
-=======
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "faculty_id", referencedColumnName = "id")
-    private Faculty faculty;
->>>>>>> main
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -48,17 +42,7 @@ public class Department {
         this.name = name;
     }
 
-<<<<<<< HEAD
 
-=======
-    public Faculty getFaculty() {
-        return faculty;
-    }
-
-    public void setFaculty(Faculty faculty) {
-        this.faculty = faculty;
-    }
->>>>>>> main
 
 
     public Faculty getTenantID() { return tenantID; }

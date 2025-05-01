@@ -42,7 +42,7 @@ public class DepartmentService {
                 .orElseThrow(() -> new RuntimeException("Departamenti nuk u gjet"));
 
         department.setName(updateDepartment.getName());
-        department.setFaculty(updateDepartment.getFaculty());
+
 
         return departmentRepository.save(department);
 
