@@ -39,7 +39,8 @@ public class CourseService {
 
         course.setName(updatedCourse.getName());
         course.setCode(updatedCourse.getCode());
-        course.setTenantId(updatedCourse.getTenantId());
+        //ERROR DUHET ME E PERMIRESU
+//        course.setTenantId(updatedCourse.getTenantId());
         course.setProgram(updatedCourse.getProgram());
 
         return courseRepository.save(course);

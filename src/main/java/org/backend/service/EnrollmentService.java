@@ -28,11 +28,14 @@ public class EnrollmentService {
 
     public Enrollment updateEnrollment(Long id, Enrollment updatedEnrollment) {
         Enrollment enrollment = enrollmentRepository.findById(id).orElseThrow();
-        enrollment.setStudentId(updatedEnrollment.getStudentId());
-        enrollment.setCourseId(updatedEnrollment.getCourseId());
+
+        //ERROR DUHET ME E PERMIRESU
+        //        enrollment.setStudentId(updatedEnrollment.getStudentId());
+//        enrollment.setCourseId(updatedEnrollment.getCourseId());
         enrollment.setEnrollmentDate(updatedEnrollment.getEnrollmentDate());
         enrollment.setAcademicYear(updatedEnrollment.getAcademicYear());
-        enrollment.setTenantId(updatedEnrollment.getTenantId());
+        //ERROR DUHET ME E PERMIRESU
+//        enrollment.setTenantId(updatedEnrollment.getTenantId());
         return enrollmentRepository.save(enrollment);
     }
 

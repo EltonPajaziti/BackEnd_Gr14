@@ -30,7 +30,7 @@ public class LectureSchedule {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_professor_id", referencedColumnName = "id", nullable = false)
-    private CourseProfessor courseProfessor;
+    private Course_Professor courseProfessor;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "program_id", referencedColumnName = "id", nullable = false)
@@ -64,8 +64,8 @@ public class LectureSchedule {
     public Faculty getTenant() { return tenant; }
     public void setTenant(Faculty tenant) { this.tenant = tenant; }
 
-    public CourseProfessor getCourseProfessor() { return courseProfessor; }
-    public void setCourseProfessor(CourseProfessor courseProfessor) { this.courseProfessor = courseProfessor; }
+    public Course_Professor getCourseProfessor() { return courseProfessor; }
+    public void setCourseProfessor(Course_Professor courseProfessor) { this.courseProfessor = courseProfessor; }
 
     public Program getProgram() { return program; }
     public void setProgram(Program program) { this.program = program; }
