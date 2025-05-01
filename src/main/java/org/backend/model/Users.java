@@ -3,7 +3,8 @@ package org.backend.model;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
+import org.backend.enums.UserRole;
+import org.backend.enums.Gender;
 @Entity
 @Table(name = "users")
 public class Users {
@@ -30,8 +31,10 @@ public class Users {
     @Column(length = 100)
     private String address;
 
-    @Column(length = 1)
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    @Column(length = 10)
+    private Gender gender;
+
 
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
@@ -42,8 +45,9 @@ public class Users {
     @Column(name = "profile_picture", length = 255)
     private String profilePicture;
 
-    @Column(length = 20)
-    private String role;
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20, nullable = false)
+    private UserRole role;
 
     @Column(name = "last_login")
     private LocalDateTime lastLogin;
@@ -83,8 +87,14 @@ public class Users {
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
 
-    public String getGender() { return gender; }
-    public void setGender(String gender) { this.gender = gender; }
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
 
     public LocalDate getDateOfBirth() { return dateOfBirth; }
     public void setDateOfBirth(LocalDate dateOfBirth) { this.dateOfBirth = dateOfBirth; }
@@ -95,8 +105,14 @@ public class Users {
     public String getProfilePicture() { return profilePicture; }
     public void setProfilePicture(String profilePicture) { this.profilePicture = profilePicture; }
 
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
 
     public LocalDateTime getLastLogin() { return lastLogin; }
     public void setLastLogin(LocalDateTime lastLogin) { this.lastLogin = lastLogin; }
