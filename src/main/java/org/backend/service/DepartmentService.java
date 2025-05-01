@@ -29,9 +29,10 @@ public class DepartmentService {
         return departmentRepository.findByName(name);
     }
 
-    public List<Department> getDepartmentsByFacultyId(Long facultyId){
-        return departmentRepository.findByFacultyId(facultyId);
+    public List<Department> getDepartmentsByFacultyId(Long tenantID){
+        return departmentRepository.findByTenantID_Id(tenantID);
     }
+
 
     public Department createDepartment(Department department){
         return  departmentRepository.save(department);

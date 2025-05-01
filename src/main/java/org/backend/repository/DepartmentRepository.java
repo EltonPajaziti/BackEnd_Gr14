@@ -8,5 +8,7 @@ public interface DepartmentRepository extends JpaRepository<Department,Long>{
 
     Department findByName(String name);
 
-    List<Department> findByFacultyId(Long facultyId);
+    List<Department> findByTenantID_Id(Long tenantId);
+
+
 }
