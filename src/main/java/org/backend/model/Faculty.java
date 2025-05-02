@@ -8,8 +8,9 @@ import java.time.LocalDateTime;
 public class Faculty {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
+
 
     @Column(name = "name", length = 50, nullable = false)
     private String name;
