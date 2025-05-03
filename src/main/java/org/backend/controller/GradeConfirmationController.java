@@ -1,11 +1,10 @@
 package org.backend.controller;
 
-import org.backend.model.Grade;
 import org.backend.model.GradeConfirmation;
 import org.backend.service.GradeConfirmationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -19,12 +18,12 @@ public class GradeConfirmationController {
         return gradeConfirmationService.getAllGradeConfirmations();
     }
 
-
     @GetMapping("/{id}")
     public GradeConfirmation getGradeConfirmationById(@PathVariable Long id) {
         return gradeConfirmationService.getGradeConfirmationById(id).orElseThrow();
     }
 
+    @PostMapping
     public GradeConfirmation createGradeConfirmation(@RequestBody GradeConfirmation gradeConfirmation) {
         return gradeConfirmationService.createGradeConfirmation(gradeConfirmation);
     }
@@ -34,4 +33,8 @@ public class GradeConfirmationController {
         gradeConfirmationService.deleteGradeConfirmation(id);
     }
 
+    @GetMapping("/expires/{date}")
+    public GradeConfirmation getByExpirationDate(@PathVariable LocalDate date) {
+        return gradeConfirmationService.findByExpiresAt(date);
+    }
 }
