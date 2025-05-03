@@ -1,13 +1,8 @@
 package org.backend.model;
 
-
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 import org.backend.enums.ConfirmationStatus;
-
 
 @Entity
 @Table(name = "grade_confirmation")
@@ -24,18 +19,12 @@ public class GradeConfirmation {
     @JoinColumn(name = "student_id", referencedColumnName = "id")
     private Student student;
 
-
-//    @Column(name = "status")
-//    private Boolean status;
-//    //Enum pasi të kryhen edhe migrimet
-@Enumerated(EnumType.STRING)
-@Column(name = "status", length = 20, nullable = false)
-private ConfirmationStatus status;
-
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", length = 20, nullable = false)
+    private ConfirmationStatus status;
 
     @Column(name = "expires_at")
     private LocalDate expiresAt;
-
 
     @Column(name = "responded_at")
     private LocalDate respondedAt;
@@ -44,6 +33,7 @@ private ConfirmationStatus status;
     @JoinColumn(name = "tenant_id", referencedColumnName = "id")
     private Faculty tenantID;
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -68,7 +58,6 @@ private ConfirmationStatus status;
         this.student = student;
     }
 
-
     public ConfirmationStatus getStatus() {
         return status;
     }
@@ -77,14 +66,12 @@ private ConfirmationStatus status;
         this.status = status;
     }
 
-
     public LocalDate getExpiresAt() {
         return expiresAt;
     }
 
     public void setExpiresAt(LocalDate expiresAt) {
         this.expiresAt = expiresAt;
-
     }
 
     public LocalDate getRespondedAt() {
@@ -102,7 +89,4 @@ private ConfirmationStatus status;
     public void setTenantID(Faculty tenantID) {
         this.tenantID = tenantID;
     }
-
-
-
 }

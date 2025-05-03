@@ -1,11 +1,7 @@
 package org.backend.model;
 
-
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 
 @Entity
 @Table(name = "grade")
@@ -40,6 +36,7 @@ public class Grade {
     @JoinColumn(name = "exam_id", referencedColumnName = "id")
     private Exam exam;
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -104,7 +101,3 @@ public class Grade {
         this.exam = exam;
     }
 }
-
-
-
-
