@@ -1,7 +1,8 @@
 package org.backend.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,13 +16,15 @@ public class ScholarshipApplication {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", referencedColumnName = "id", nullable = false)
+    @NotNull(message = "Student is required")
     private Student student;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "academic_year_id", referencedColumnName = "id", nullable = false)
+    @NotNull(message = "Academic year is required")
     private AcademicYear academicYear;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tenant_id", referencedColumnName = "id")
     private Faculty tenantID;
 
@@ -29,6 +32,7 @@ public class ScholarshipApplication {
     private Double gpa;
 
     @Column(name = "status", length = 50)
+    @Size(max = 50, message = "Status must not exceed 50 characters")
     private String status;
 
     @Column(name = "request_date")
@@ -51,16 +55,13 @@ public class ScholarshipApplication {
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
+        this.requestDate = LocalDateTime.now();
     }
 
     @PreUpdate
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
-
-
-
-
 
     // Getters and Setters
     public Long getId() { return id; }
@@ -96,7 +97,3 @@ public class ScholarshipApplication {
     public LocalDateTime getUpdatedAt() { return updatedAt; }
     public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
 }
-
-
-
-
