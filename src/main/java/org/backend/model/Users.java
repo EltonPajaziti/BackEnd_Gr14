@@ -3,7 +3,7 @@ package org.backend.model;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import org.backend.enums.UserRole;
+import org.backend.model.UserRole;
 import org.backend.enums.Gender;
 @Entity
 @Table(name = "users")
@@ -45,9 +45,12 @@ public class Users {
     @Column(name = "profile_picture", length = 255)
     private String profilePicture;
 
-    @Enumerated(EnumType.STRING)
-    @Column(length = 20, nullable = false)
-    private UserRole role;
+
+    // Qetu e bana ndryshimin masi qe e ndava ROLE prej tabeles Users
+    //Pra e bana si tabele ne veti UserRole
+ @ManyToOne
+ @JoinColumn(name = "role_id", nullable = false)
+ private UserRole role;
 
     @Column(name = "last_login")
     private LocalDateTime lastLogin;
