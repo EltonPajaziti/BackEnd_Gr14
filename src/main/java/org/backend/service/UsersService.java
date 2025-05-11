@@ -34,21 +34,26 @@ public class UsersService {
     public Users createUser(Users user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        //  VALIDIM: Kontrollo nëse emri i rolit është i lejuar
-        if (user.getRole() != null && user.getRole().getId() == null) {
-            if (!List.of("STUDENT", "ADMIN", "PROFESSOR").contains(user.getRole().getName())) {
-                throw new IllegalArgumentException("Invalid role name: " + user.getRole().getName());
-            }
-
-            UserRole role = roleRepository.findByName(user.getRole().getName());
-            if (role == null) {
-                throw new IllegalArgumentException("Role '" + user.getRole().getName() + "' doesn't exist.");
-            }
-            user.setRole(role);
+        if (user.getRole() == null || user.getRole().getName() == null) {
+            throw new IllegalArgumentException("Duhet të dërgosh emrin e rolit.");
         }
+
+        String roleName = user.getRole().getName().toUpperCase(); // ADMIN, PROFESSOR, STUDENT
+
+        if (!List.of("STUDENT", "ADMIN", "PROFESSOR").contains(roleName)) {
+            throw new IllegalArgumentException("Roli i panjohur: " + roleName);
+        }
+
+        UserRole role = roleRepository.findByName(roleName);
+        if (role == null) {
+            throw new IllegalArgumentException("Roli '" + roleName + "' nuk ekziston në databazë.");
+        }
+
+        user.setRole(role); // vendos objektin korrekt të entitetit
 
         return userRepository.save(user);
     }
+
 
 
     public Users updateUser(Long id, Users updatedUser) {
