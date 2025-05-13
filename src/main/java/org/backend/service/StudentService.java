@@ -28,14 +28,20 @@ public class StudentService {
 
     public Student updateStudent(Long id, Student updatedStudent) {
         Student student = studentRepository.findById(id).orElseThrow();
-// ERRORA, DUHET ME I PERMIRESU
-//        student.setUserId(updatedStudent.getUserId());
-//        student.setProgramId(updatedStudent.getProgramId());
-//        student.setTenantId(updatedStudent.getTenantId());
+
+        student.setUser(updatedStudent.getUser());
+        student.setProgram(updatedStudent.getProgram());
+        student.setTenantID(updatedStudent.getTenantID());
         student.setEnrollmentDate(updatedStudent.getEnrollmentDate());
 
         return studentRepository.save(student);
     }
+
+
+    public List<Student> getStudentsByTenant(Long tenantId) {
+        return studentRepository.findByTenantID_Id(tenantId);
+    }
+
 
     public void deleteStudent(Long id) {
         studentRepository.deleteById(id);
