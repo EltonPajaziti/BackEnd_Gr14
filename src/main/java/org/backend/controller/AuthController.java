@@ -1,6 +1,7 @@
 package org.backend.controller;
 
 import org.backend.dto.AuthRequest;
+import org.backend.dto.AuthResponse;
 import org.backend.model.Users;
 import org.backend.repository.UsersRepository;
 import org.backend.service.JwtService;
@@ -8,9 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -35,9 +33,11 @@ public class AuthController {
 
         String token = jwtService.generateToken(user.getEmail());
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("message", "Login successful");
-        response.put("token", token);
+        AuthResponse response = new AuthResponse(
+                token,
+                user.getId(),
+                user.getTenantID() != null ? user.getTenantID().getId() : null
+        );
 
         return ResponseEntity.ok(response);
     }
