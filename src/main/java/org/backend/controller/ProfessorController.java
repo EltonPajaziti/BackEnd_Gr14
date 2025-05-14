@@ -43,4 +43,9 @@ public class ProfessorController {
         professorService.deleteProfessor(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/count/by-tenant/{tenantId}")
+    public Long countProfessorsByTenant(@PathVariable("tenantId") Long tenantId) {
+        return professorService.countProfessorsByTenant(tenantId);
+    }
 }

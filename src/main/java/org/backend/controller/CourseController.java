@@ -50,5 +50,10 @@ public class CourseController {
         return courseService.getCoursesByProgramId(programId);
     }
 
+    @GetMapping("/count/by-tenant/{tenantId}")
+    public Long countCoursesByTenant(@PathVariable("tenantId") Long tenantId) {
+        return courseService.countCourseByTenant(tenantId);
+    }
+
 
 }

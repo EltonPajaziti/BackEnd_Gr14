@@ -50,6 +50,9 @@ public class CourseService {
         courseRepository.deleteById(id);
     }
 
+    public Long countCourseByTenant(Long tenantId) {
+        return courseRepository.countByTenantID_Id(tenantId);
+    }
     public List<Course> getCoursesByProgramId(Long programId) {
         return courseRepository.findByProgramId(programId);
     }

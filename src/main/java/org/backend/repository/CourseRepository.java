@@ -8,5 +8,6 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     Course findCourseByName(String name);
     Course findCourseByCode(String code);
     List<Course> findByProgramId(Long programId);
+    Long countByTenantID_Id(Long tenantId);
 
 }

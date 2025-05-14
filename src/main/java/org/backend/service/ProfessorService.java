@@ -50,6 +50,10 @@ public class ProfessorService {
         return professorRepository.save(professor);
     }
 
+    public Long countProfessorsByTenant(Long tenantId) {
+        return professorRepository.countByTenantID_Id(tenantId);
+    }
+
     public void deleteProfessor(Long id) {
         if (!professorRepository.existsById(id)) {
             throw new RuntimeException("Profesori nuk ekziston");
