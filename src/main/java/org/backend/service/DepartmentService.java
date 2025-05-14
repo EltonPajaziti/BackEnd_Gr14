@@ -48,7 +48,9 @@ public class DepartmentService {
         return departmentRepository.save(department);
 
     }
-
+    public Long countDepartmentsByTenant(Long tenantId) {
+        return departmentRepository.countByTenantID_Id(tenantId);
+    }
     public  void deleteDepartment(Long id){
         departmentRepository.deleteById(id);
     }

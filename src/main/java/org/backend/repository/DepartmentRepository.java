@@ -10,5 +10,8 @@ public interface DepartmentRepository extends JpaRepository<Department,Long>{
 
     List<Department> findByTenantID_Id(Long tenantId);
 
+    Long countByTenantID_Id(Long tenantId);
+
+
 
 }

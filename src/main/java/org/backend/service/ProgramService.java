@@ -41,8 +41,7 @@ public class ProgramService {
 
         program.setName(updatedProgram.getName());
         program.setLevel(updatedProgram.getLevel());
-//ERROR, DUHET ME PERMIRESU
-        //        program.setTenantId(updatedProgram.getTenantId());
+        program.setTenantID(updatedProgram.getTenantID());
         program.setDepartment(updatedProgram.getDepartment());
 
         return programRepository.save(program);

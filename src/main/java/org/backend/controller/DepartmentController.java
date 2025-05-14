@@ -41,7 +41,10 @@ public class DepartmentController {
             return ResponseEntity.notFound().build();
         }
     }
-
+    @GetMapping("/count/by-tenant/{tenantId}")
+    public Long countDepartmentsByTenant(@PathVariable("tenantId") Long tenantId) {
+        return departmentService.countDepartmentsByTenant(tenantId);
+    }
     @DeleteMapping("/{id}")
     public void deleteDepartment(@PathVariable Long id) {
         departmentService.deleteDepartment(id);
