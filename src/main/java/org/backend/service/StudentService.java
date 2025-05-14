@@ -46,4 +46,9 @@ public class StudentService {
     public void deleteStudent(Long id) {
         studentRepository.deleteById(id);
     }
+
+    public long countStudentsByTenant(Long tenantId) {
+        return studentRepository.countByTenantID_Id(tenantId);
+    }
+
 }

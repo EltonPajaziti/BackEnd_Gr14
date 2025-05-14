@@ -1,13 +1,15 @@
 package org.backend.service;
 
-import org.backend.model.Users;
-import org.backend.model.UserRole;
-import org.backend.repository.UsersRepository;
-import org.backend.repository.UserRoleRepository;
+import org.backend.dto.UserCreateDTO;
+import org.backend.enums.Gender;
+import org.backend.model.*;
+import org.backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +25,15 @@ public class UsersService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private FacultyRepository facultyRepository;
+
+    @Autowired
+    private StudentRepository studentRepository;
+
+    @Autowired
+    private ProgramRepository programRepository;
+
     public List<Users> getAllUsers() {
         return userRepository.findAll();
     }
@@ -31,42 +42,57 @@ public class UsersService {
         return userRepository.findById(id);
     }
 
-    public Users createUser(Users user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    @Transactional
+    public Users createUser(UserCreateDTO dto, Long tenantId) {
+        Faculty tenant = facultyRepository.findById(tenantId)
+                .orElseThrow(() -> new IllegalArgumentException("Tenant nuk ekziston"));
 
-        if (user.getRole() == null || user.getRole().getName() == null) {
-            throw new IllegalArgumentException("Duhet të dërgosh emrin e rolit.");
-        }
-
-        String roleName = user.getRole().getName().toUpperCase(); // ADMIN, PROFESSOR, STUDENT
-
-        if (!List.of("STUDENT", "ADMIN", "PROFESSOR").contains(roleName)) {
-            throw new IllegalArgumentException("Roli i panjohur: " + roleName);
-        }
-
-        UserRole role = roleRepository.findByName(roleName);
+        UserRole role = roleRepository.findByName(dto.getRoleName().toUpperCase());
         if (role == null) {
-            throw new IllegalArgumentException("Roli '" + roleName + "' nuk ekziston në databazë.");
+            throw new IllegalArgumentException("Roli '" + dto.getRoleName() + "' nuk ekziston.");
         }
 
-        user.setRole(role); // vendos objektin korrekt të entitetit
+        Users user = new Users();
+        user.setFirstName(dto.getFirstName());
+        user.setLastName(dto.getLastName());
+        user.setEmail(dto.getEmail());
+        user.setPhone(dto.getPhone());
+        user.setAddress(dto.getAddress());
+        user.setGender(Gender.valueOf(dto.getGender().toUpperCase()));
+        user.setDateOfBirth(LocalDate.parse(dto.getDateOfBirth()));
+        user.setNationalId(dto.getNationalId());
+        user.setProfilePicture(dto.getProfilePicture());
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.setTenantID(tenant);
+        user.setRole(role);
 
-        return userRepository.save(user);
+        Users savedUser = userRepository.save(user);
+
+        if (role.getName().equalsIgnoreCase("STUDENT")) {
+            Student student = new Student();
+            student.setUser(savedUser);
+            student.setTenantID(tenant);
+            student.setEnrollmentDate(LocalDate.now());
+
+            Program program = programRepository.findById(1L)
+                    .orElseThrow(() -> new IllegalArgumentException("Program default nuk u gjet"));
+            student.setProgram(program);
+
+            studentRepository.save(student);
+        }
+
+        return savedUser;
     }
-
-
 
     public Users updateUser(Long id, Users updatedUser) {
         Users existingUser = userRepository.findById(id).orElseThrow();
 
-        // Hasho fjalëkalimin vetëm nëse është ndryshuar
         if (!passwordEncoder.matches(updatedUser.getPassword(), existingUser.getPassword())) {
             updatedUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
         } else {
             updatedUser.setPassword(existingUser.getPassword());
         }
 
-        // Përditëso rolin nëse vjen me emër pa ID
         if (updatedUser.getRole() != null && updatedUser.getRole().getId() == null) {
             if (!List.of("STUDENT", "ADMIN", "PROFESSOR").contains(updatedUser.getRole().getName())) {
                 throw new IllegalArgumentException("Invalid role name: " + updatedUser.getRole().getName());

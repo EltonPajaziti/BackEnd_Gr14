@@ -1,5 +1,6 @@
 package org.backend.controller;
 
+import org.backend.dto.UserCreateDTO;
 import org.backend.model.Users;
 import org.backend.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,10 @@ public class UsersController {
         return userService.getUserById(id).orElseThrow();
     }
 
-    @PostMapping
-    public Users createUser(@RequestBody Users user) {
-        return userService.createUser(user);
-    }
+//    @PostMapping
+//    public Users createUser(@RequestBody Users user) {
+//        return userService.createUser(user);
+//    }
 
     @PutMapping("/{id}")
     public Users updateUser(@PathVariable Long id, @RequestBody Users user) {
@@ -38,4 +39,11 @@ public class UsersController {
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
     }
+
+    @PostMapping("/create")
+    public Users createUser(@RequestBody UserCreateDTO dto,
+                            @RequestParam("tenantId") Long tenantId) {
+        return userService.createUser(dto, tenantId);
+    }
+
 }
