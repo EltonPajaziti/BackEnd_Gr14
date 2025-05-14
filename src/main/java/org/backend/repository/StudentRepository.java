@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
     List<Student> findByTenantID_Id(Long tenantId);
+
+    long countByTenantID_Id(Long tenantId);
 }

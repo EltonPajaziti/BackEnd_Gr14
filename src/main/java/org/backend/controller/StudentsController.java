@@ -44,6 +44,12 @@ public class StudentsController {
         return studentService.getStudentsByTenant(tenantId);
     }
 
+    @GetMapping("/count/by-tenant/{tenantId}")
+    public long countStudentsByTenant(@PathVariable("tenantId") Long tenantId) {
+        return studentService.countStudentsByTenant(tenantId);
+    }
+
+
 }
 
 
