@@ -1,5 +1,6 @@
 package org.backend.controller;
 
+import org.backend.dto.ProgramCreateDTO;
 import org.backend.model.Program;
 import org.backend.service.ProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +27,7 @@ public class ProgramController {
         return programService.getProgramById(id).orElseThrow();
     }
 
-    // POST create new program
-    @PostMapping
-    public Program createProgram(@RequestBody Program program) {
-        return programService.createProgram(program);
-    }
+
 
     // PUT update program
     @PutMapping("/{id}")
@@ -41,6 +38,11 @@ public class ProgramController {
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping("/create")
+    public Program createProgram(@RequestBody ProgramCreateDTO dto) {
+        return programService.createProgram(dto);
     }
 
     @DeleteMapping("/{id}")

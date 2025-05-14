@@ -1,7 +1,12 @@
 package org.backend.service;
 
 
+import org.backend.dto.ProgramCreateDTO;
+import org.backend.model.Department;
+import org.backend.model.Faculty;
 import org.backend.model.Program;
+import org.backend.repository.DepartmentRepository;
+import org.backend.repository.FacultyRepository;
 import org.backend.repository.ProgramRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +18,12 @@ import java.util.Optional;
 public class ProgramService {
     @Autowired
     private ProgramRepository programRepository;
+
+    @Autowired
+    private FacultyRepository facultyRepository;
+
+    @Autowired
+    private DepartmentRepository departmentRepository;
 
 
     public List<Program> getAllPrograms(){
@@ -31,9 +42,26 @@ public class ProgramService {
         return programRepository.findProgramByLevel(level);
     }
 
-    public Program createProgram(Program program){
+
+
+    public Program createProgram(ProgramCreateDTO dto) {
+        Program program = new Program();
+        program.setName(dto.getName());
+        program.setLevel(dto.getLevel());
+
+        Department department = departmentRepository.findById(dto.getDepartmentId())
+                .orElseThrow(() -> new IllegalArgumentException("Department not found"));
+        program.setDepartment(department);
+
+        if (dto.getTenantId() != null) {
+            Faculty tenant = facultyRepository.findById(dto.getTenantId())
+                    .orElseThrow(() -> new IllegalArgumentException("Faculty not found"));
+            program.setTenantID(tenant);
+        }
+
         return programRepository.save(program);
     }
+
 
     public Program updateProgram(Long id, Program updatedProgram) {
         Program program = programRepository.findById(id)
