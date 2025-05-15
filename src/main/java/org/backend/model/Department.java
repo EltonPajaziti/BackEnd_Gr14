@@ -17,7 +17,7 @@ public class Department {
 
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "tenant_id", referencedColumnName = "id")
     private Faculty tenantID;
 

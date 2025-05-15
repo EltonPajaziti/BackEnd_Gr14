@@ -12,14 +12,20 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/programs")
+@CrossOrigin(origins = "http://localhost:5173")
+
 public class ProgramController {
 
     @Autowired
     private ProgramService programService;
 
     @GetMapping
-    public List<Program> getAllPrograms() {
-        return programService.getAllPrograms();
+    public ResponseEntity<List<Program>> getAllPrograms() {
+        List<Program> programs = programService.getAllPrograms();
+        if (programs.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(programs);
     }
 
     @GetMapping("/{id}")
@@ -30,6 +36,7 @@ public class ProgramController {
 
 
     // PUT update program
+/*
     @PutMapping("/{id}")
     public ResponseEntity<Program> updateProgram(@PathVariable Long id, @RequestBody Program updatedProgram) {
         try {
@@ -39,6 +46,7 @@ public class ProgramController {
             return ResponseEntity.notFound().build();
         }
     }
+*/
 
     @PostMapping("/create")
     public Program createProgram(@RequestBody ProgramCreateDTO dto) {
