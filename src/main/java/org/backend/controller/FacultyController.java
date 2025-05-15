@@ -1,5 +1,6 @@
 package org.backend.controller;
 
+import org.backend.dto.FacultyCreateDTO;
 import org.backend.model.Faculty;
 import org.backend.service.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/faculties")
+@CrossOrigin(origins = "http://localhost:5173")
 public class FacultyController {
 
     @Autowired
@@ -24,10 +26,11 @@ public class FacultyController {
         return facultyService.getFacultyById(id).orElseThrow();
     }
 
-    @PostMapping
-    public Faculty createFaculty(@RequestBody Faculty faculty) {
-        return facultyService.createFaculty(faculty);
+    @PostMapping("/create")
+    public Faculty createFaculty(@RequestBody FacultyCreateDTO dto) {
+        return facultyService.createFaculty(dto);
     }
+
 
     @PutMapping("/{id}")
     public Faculty updateFaculty(@PathVariable Long id, @RequestBody Faculty faculty) {
