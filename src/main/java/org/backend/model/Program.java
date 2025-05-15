@@ -17,7 +17,7 @@ public class Program {
     @Column(name = "level", length = 50, nullable = false)
     private String level;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "department_id", nullable = false)
     private Department department;
 

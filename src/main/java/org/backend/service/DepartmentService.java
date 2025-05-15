@@ -1,7 +1,10 @@
 package org.backend.service;
 
+import org.backend.dto.DepartmentCreateDTO;
 import org.backend.model.Department;
+import org.backend.model.Faculty;
 import org.backend.repository.DepartmentRepository;
+import org.backend.repository.FacultyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -11,7 +14,12 @@ import java.util.Optional;
 public class DepartmentService {
 
     @Autowired
-    private  final DepartmentRepository departmentRepository;
+    private final DepartmentRepository departmentRepository;
+
+
+    @Autowired
+    private FacultyRepository facultyRepository;
+
 
     public DepartmentService(DepartmentRepository departmentRepository){
         this.departmentRepository = departmentRepository;
@@ -34,8 +42,18 @@ public class DepartmentService {
     }
 
 
-    public Department createDepartment(Department department){
-        return  departmentRepository.save(department);
+    public Department createDepartment(DepartmentCreateDTO departmentDTO) {
+        Department department = new Department();
+        department.setName(departmentDTO.getName());
+        if (departmentDTO.getTenantID() == null) {
+            throw new IllegalArgumentException("Faculty ID must be provided");
+        }
+        Faculty faculty = facultyRepository.findById(departmentDTO.getTenantID())
+                .orElseThrow(() -> new RuntimeException("Faculty not found with ID: " + departmentDTO.getTenantID()));
+
+        department.setTenantID(faculty);
+
+        return departmentRepository.save(department);
     }
 
     public Department updateDepartment(Long id, Department updateDepartment){
