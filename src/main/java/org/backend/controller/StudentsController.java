@@ -1,8 +1,10 @@
 package org.backend.controller;
 
+import org.backend.dto.CourseDTO;
 import org.backend.model.Student;
 import org.backend.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,7 +12,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/students")
 @CrossOrigin(origins = "http://localhost:5173")
-
 public class StudentsController {
 
     @Autowired
@@ -51,8 +52,19 @@ public class StudentsController {
         return studentService.countStudentsByTenant(tenantId);
     }
 
+    @GetMapping("/by-user/{userId}")
+    public ResponseEntity<Student> getStudentByUserId(@PathVariable("userId") Long userId) {
+        return studentService.getStudentByUserId(userId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+    @GetMapping("/{studentId}/available-courses")
+    public ResponseEntity<List<CourseDTO>> getAvailableCourses(
+            @PathVariable("studentId") Long studentId,
+            @RequestParam("semester") Short semester) {
+        List<CourseDTO> courses = studentService.getAvailableCourses(studentId, semester);
+        return ResponseEntity.ok(courses);
+    }
+
 
 }
-
-
-

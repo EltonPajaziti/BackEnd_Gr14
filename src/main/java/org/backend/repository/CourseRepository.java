@@ -10,4 +10,9 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     List<Course> findByProgramId(Long programId);
     Long countByTenantID_Id(Long tenantId);
 
+    List<Course> findByProgram_IdAndTenantID_IdAndSemester(
+            Long programId, Long tenantId, Short semester);
+
+    List<Course> findDistinctByTenantID_IdOrderBySemesterAsc(Long tenantId);
+
 }
