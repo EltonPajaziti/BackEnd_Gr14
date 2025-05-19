@@ -18,9 +18,13 @@ public class Enrollment {
     private Course course;
     @Column(name = "enrollment_date", nullable = false)
     private LocalDate enrollmentDate;
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "academic_year", referencedColumnName = "id")
-    private AcademicYear academicYear;
+//    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "academic_year", referencedColumnName = "id")
+//    private AcademicYear academicYear;
+@ManyToOne(optional = true, fetch = FetchType.LAZY)
+@JoinColumn(name = "academic_year", referencedColumnName = "id", nullable = true)
+private AcademicYear academicYear;
+
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "tenant_id", referencedColumnName = "id")
 
