@@ -1,5 +1,6 @@
 package org.backend.controller;
 
+import org.backend.dto.LectureScheduleDTO;
 import org.backend.model.LectureSchedule;
 import org.backend.service.LectureScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,4 +78,13 @@ public class LectureScheduleController {
     public List<LectureSchedule> getByProgram(@PathVariable Long programId) {
         return lectureScheduleService.getByProgramId(programId);
     }
+
+    @GetMapping("/student")
+    public ResponseEntity<List<LectureScheduleDTO>> getStudentSchedule(
+            @RequestParam(name = "userId") Long userId,
+            @RequestParam(name = "tenantId") Long tenantId) {
+        List<LectureScheduleDTO> schedule = lectureScheduleService.getStudentSchedule(userId, tenantId);
+        return ResponseEntity.ok(schedule);
+    }
+
 }

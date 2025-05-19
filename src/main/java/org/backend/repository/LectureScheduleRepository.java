@@ -11,4 +11,5 @@ public interface LectureScheduleRepository extends JpaRepository<LectureSchedule
     List<LectureSchedule> findByTenantId(Long tenantId);
     List<LectureSchedule> findByCourseProfessorId(Long courseProfessorId);
     List<LectureSchedule> findByProgramId(Long programId);
+    List<LectureSchedule> findByTenantIdAndProgramId(Long tenantId, Long programId);
 }
