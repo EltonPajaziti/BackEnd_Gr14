@@ -1,0 +1,2 @@
+ALTER TABLE students
+ADD COLUMN year_of_study SMALLINT DEFAULT 1;

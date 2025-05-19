@@ -9,4 +9,7 @@ import java.util.List;
 @Repository
 public interface CourseProfessorRepository extends JpaRepository<Course_Professor, Long> {
     List<Course_Professor> findByTenantID_Id(Long tenantId);
+
+    List<Course_Professor> findByCourseId(Long courseId);
+
 }

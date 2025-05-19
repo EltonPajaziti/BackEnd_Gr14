@@ -1,17 +1,31 @@
 package org.backend.service;
 
 import org.backend.model.Course;
+import org.backend.model.Enrollment;
+import org.backend.model.Student;
 import org.backend.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import org.backend.repository.StudentRepository;
+import org.backend.repository.EnrollmentRepository;
+import java.util.Set;
+import java.util.HashSet;
 
 @Service
 public class CourseService {
     @Autowired
     private CourseRepository courseRepository;
+
+    @Autowired
+    private StudentRepository studentRepository;
+
+    @Autowired
+    private EnrollmentRepository enrollmentRepository;
+
 
     public List<Course> getAllCourses(){
         return courseRepository.findAll();
@@ -57,5 +71,33 @@ public class CourseService {
         return courseRepository.findByProgramId(programId);
     }
 
+//    public List<Course> getAvailableCoursesForStudent(Long studentId, Short semester) {
+//        Student student = studentRepository.findById(studentId)
+//                .orElseThrow(() -> new RuntimeException("Student not found"));
+//
+//        List<Course> allCourses = courseRepository.findByProgram_IdAndTenantID_IdAndSemester(
+//                student.getProgram().getId(),
+//                student.getTenantID().getId(),
+//                semester
+//        );
+//
+//        List<Enrollment> enrollments = enrollmentRepository.findByStudent_Id(studentId);
+//        Set<Long> enrolledCourseIds = enrollments.stream()
+//                .map(e -> e.getCourse().getId())
+//                .collect(Collectors.toSet());
+//
+//        return allCourses.stream()
+//                .filter(course -> !enrolledCourseIds.contains(course.getId()))
+//                .toList();
+//    }
+
+//    public List<Short> getAvailableSemesters(Long tenantId) {
+//        List<Course> courses = courseRepository.findDistinctByTenantID_IdOrderBySemesterAsc(tenantId);
+//        return courses.stream()
+//                .map(Course::getSemester)
+//                .distinct()
+//                .sorted()
+//                .collect(Collectors.toList());
+//    }
 
 }

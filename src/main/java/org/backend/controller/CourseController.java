@@ -55,5 +55,16 @@ public class CourseController {
         return courseService.countCourseByTenant(tenantId);
     }
 
+//    @GetMapping("/available/{studentId}/{semester}")
+//    public ResponseEntity<List<Course>> getAvailableCourses(
+//            @PathVariable Long studentId,
+//            @PathVariable Short semester) {
+//        List<Course> courses = courseService.getAvailableCoursesForStudent(studentId, semester);
+//        return ResponseEntity.ok(courses);
+//    }
 
+//    @GetMapping("/semesters/{tenantId}")
+//    public ResponseEntity<List<Short>> getAvailableSemesters(@PathVariable Long tenantId) {
+//        return ResponseEntity.ok(courseService.getAvailableSemesters(tenantId));
+//    }
 }
