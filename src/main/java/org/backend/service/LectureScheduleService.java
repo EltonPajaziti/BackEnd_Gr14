@@ -1,11 +1,18 @@
 package org.backend.service;
 
+import org.backend.dto.LectureScheduleDTO;
+import org.backend.model.Course;
+
+import org.backend.model.Course_Professor;
 import org.backend.model.LectureSchedule;
+import org.backend.model.Student;
 import org.backend.repository.LectureScheduleRepository;
+import org.backend.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,12 +20,46 @@ import java.util.Optional;
 public class LectureScheduleService {
 
     private final LectureScheduleRepository lectureScheduleRepository;
+    private final StudentRepository studentRepository;
 
     @Autowired
-    public LectureScheduleService(LectureScheduleRepository lectureScheduleRepository) {
+    public LectureScheduleService(LectureScheduleRepository lectureScheduleRepository,
+                                  StudentRepository studentRepository) {
         this.lectureScheduleRepository = lectureScheduleRepository;
+        this.studentRepository = studentRepository;
     }
 
+    @Transactional(readOnly = true)
+    public List<LectureScheduleDTO> getStudentSchedule(Long userId, Long tenantId) {
+        // Gjej studentin sipas userId
+        Student student = studentRepository.findByUser_Id(userId)
+
+                .orElseThrow(() -> new RuntimeException("Student not found for userId: " + userId));
+
+        Long programId = student.getProgram().getId();
+
+        // Merr orarin për programin dhe tenantin e studentit
+        List<LectureSchedule> schedules = lectureScheduleRepository.findByTenantIdAndProgramId(tenantId, programId);
+        List<LectureScheduleDTO> dtos = new ArrayList<>();
+
+        for (LectureSchedule schedule : schedules) {
+            Course_Professor cp = schedule.getCourseProfessor();
+            Course course = cp.getCourse();
+
+            LectureScheduleDTO dto = new LectureScheduleDTO(
+                    course.getName(),
+                    schedule.getRoom(),
+                    schedule.getDayOfWeek(),
+                    schedule.getStartTime().toString(),
+                    schedule.getEndTime().toString()
+            );
+            dtos.add(dto);
+        }
+
+        return dtos;
+    }
+
+    // Metodat ekzistuese të tjera lëre siç janë
     @Transactional(readOnly = true)
     public List<LectureSchedule> getAll() {
         return lectureScheduleRepository.findAll();
