@@ -1,5 +1,6 @@
 package org.backend.controller;
 
+import org.backend.dto.CourseDTO;
 import org.backend.dto.EnrollmentRequestDTO;
 import org.backend.dto.RegisteredCourseDTO;
 import org.backend.model.Enrollment;
@@ -73,6 +74,24 @@ public class EnrollmentController {
  {
         return enrollmentService.getRegisteredCoursesForStudent(studentId);
     }
+
+
+//    @GetMapping("/student/{studentId}/courses-by-semester")
+//    public List<CourseDTO> getCoursesBySemester(
+//            @PathVariable("studentId") Long studentId,
+//            @RequestParam("semester") int semester) {
+//        return enrollmentService.getRegisteredCoursesBySemester(studentId, semester);
+//    }
+
+    @GetMapping("/student/{studentId}/courses-by-semester")
+    public List<CourseDTO> getCoursesBySemester(
+            @PathVariable("studentId") Long studentId,
+            @RequestParam("semester") int semester) {
+        return enrollmentService.getRegisteredCoursesBySemester(studentId, semester);
+    }
+
+
+
 
 
 }
