@@ -1,21 +1,17 @@
 package org.backend.service;
 
+import org.backend.dto.CourseDTO;
 import org.backend.dto.EnrollmentRequestDTO;
-import org.backend.model.Course;
-import org.backend.model.Enrollment;
-import org.backend.model.Faculty;
-import org.backend.model.Student;
-import org.backend.repository.CourseRepository;
-import org.backend.repository.EnrollmentRepository;
-import org.backend.repository.FacultyRepository;
-import org.backend.repository.StudentRepository;
+import org.backend.dto.RegisteredCourseDTO;
+import org.backend.model.*;
+import org.backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import org.backend.dto.RegisteredCourseDTO;
 
 @Service
 public class EnrollmentService {
@@ -32,7 +28,15 @@ public class EnrollmentService {
     @Autowired
     private FacultyRepository facultyRepository;
 
-    // GET
+    @Autowired
+    private CourseProfessorRepository courseProfessorRepository;
+
+    @Autowired
+    private ProfessorRepository professorRepository;
+
+    @Autowired
+    private UsersRepository userRepository;
+
     public List<Enrollment> getAllEnrollments() {
         return enrollmentRepository.findAll();
     }
@@ -45,12 +49,10 @@ public class EnrollmentService {
         return enrollmentRepository.findByStudent_Id(studentId);
     }
 
-    // CREATE (nëse ndonjë controller e përdor ende këtë)
     public Enrollment createEnrollment(Enrollment enrollment) {
         return enrollmentRepository.save(enrollment);
     }
 
-    // ENROLL student using DTO pa academicYear
     public Enrollment enrollStudent(EnrollmentRequestDTO dto) {
         if (enrollmentRepository.existsByStudent_IdAndCourse_Id(dto.getStudentId(), dto.getCourseId())) {
             throw new RuntimeException("Studenti është regjistruar tashmë në këtë kurs.");
@@ -70,12 +72,11 @@ public class EnrollmentService {
         enrollment.setCourse(course);
         enrollment.setTenantID(tenant);
         enrollment.setEnrollmentDate(LocalDate.now());
-        enrollment.setAcademicYear(null); // nuk përdoret
+        enrollment.setAcademicYear(null);
 
         return enrollmentRepository.save(enrollment);
     }
 
-    // UPDATE
     public Enrollment updateEnrollment(Long id, Enrollment updatedEnrollment) {
         Enrollment enrollment = enrollmentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Enrollment nuk u gjet për ID: " + id));
@@ -83,19 +84,15 @@ public class EnrollmentService {
         enrollment.setStudent(updatedEnrollment.getStudent());
         enrollment.setCourse(updatedEnrollment.getCourse());
         enrollment.setEnrollmentDate(updatedEnrollment.getEnrollmentDate());
-        enrollment.setAcademicYear(null); // gjithashtu e lëmë null
+        enrollment.setAcademicYear(null);
         enrollment.setTenantID(updatedEnrollment.getTenantID());
 
         return enrollmentRepository.save(enrollment);
     }
 
-    // DELETE
     public void deleteEnrollment(Long id) {
         enrollmentRepository.deleteById(id);
     }
-
-
-
 
     public List<RegisteredCourseDTO> getRegisteredCoursesForStudent(Long studentId) {
         List<Enrollment> enrollments = enrollmentRepository.findByStudent_Id(studentId);
@@ -109,7 +106,6 @@ public class EnrollmentService {
             dto.setName(course.getName());
             dto.setCredits(course.getCredits());
 
-            // Marrim profesorin nga course.getCourseProfessors() (nëse ekziston)
             String professorName = course.getCourseProfessors() != null && !course.getCourseProfessors().isEmpty()
                     ? course.getCourseProfessors().get(0).getProfessor().getUser().getFirstName() + " " +
                     course.getCourseProfessors().get(0).getProfessor().getUser().getLastName()
@@ -119,4 +115,38 @@ public class EnrollmentService {
             return dto;
         }).toList();
     }
+
+    public List<CourseDTO> getRegisteredCoursesBySemester(Long studentId, int semester) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+
+        List<Enrollment> enrollments = enrollmentRepository.findByStudent_Id(studentId);
+        List<CourseDTO> courses = new ArrayList<>();
+
+        for (Enrollment enrollment : enrollments) {
+            Course course = enrollment.getCourse();
+
+            if (course.getSemester() != null && course.getSemester() == semester) {
+                CourseDTO dto = new CourseDTO();
+                dto.setId(course.getId());
+                dto.setName(course.getName());
+                dto.setCode(course.getCode());
+                dto.setCredits(course.getCredits());
+
+                List<Course_Professor> cpList = courseProfessorRepository.findByCourseId(course.getId());
+                if (!cpList.isEmpty()) {
+                    Professor professor = cpList.get(0).getProfessor();
+                    if (professor != null && professor.getUser() != null) {
+                        dto.setProfessorName(professor.getUser().getFirstName() + " " + professor.getUser().getLastName());
+                    }
+                }
+
+                courses.add(dto);
+            }
+        }
+
+        return courses;
+    }
+
+
 }

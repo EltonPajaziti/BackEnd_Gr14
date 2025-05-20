@@ -36,6 +36,12 @@ public class CourseMaterial {
     @NotNull(message = "Tenant (Faculty) is required")
     private Faculty tenantID;
 
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id", referencedColumnName = "id", nullable = false)
+    @NotNull(message = "Course is required")
+    private Course course;
+
     public CourseMaterial() {}
 
     @PrePersist
@@ -61,4 +67,13 @@ public class CourseMaterial {
 
     public Faculty getTenantID() { return tenantID; }
     public void setTenantID(Faculty tenantID) { this.tenantID = tenantID; }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
 }

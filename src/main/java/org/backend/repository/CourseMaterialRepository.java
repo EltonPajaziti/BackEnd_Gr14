@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface CourseMaterialRepository extends JpaRepository<CourseMaterial, Long> {
     List<CourseMaterial> findByTenantIDId(Long tenantId);
+    List<CourseMaterial> findByCourseId(Long courseId);
+
 }

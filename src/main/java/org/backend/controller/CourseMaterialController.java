@@ -1,5 +1,6 @@
 package org.backend.controller;
 
+import org.backend.dto.CourseMaterialDTO;
 import org.backend.model.CourseMaterial;
 import org.backend.service.CourseMaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,5 +67,16 @@ public class CourseMaterialController {
     @GetMapping("/tenant/{tenantId}")
     public List<CourseMaterial> getByTenant(@PathVariable Long tenantId) {
         return courseMaterialService.getByTenantId(tenantId);
+    }
+
+    //  ENDPOINT I RI për materialet e një lënde të caktuar
+    @GetMapping("/by-course")
+    public ResponseEntity<List<CourseMaterialDTO>> getMaterialsByCourse(@RequestParam("courseId") Long courseId) {
+        if (courseId == null) {
+            throw new IllegalArgumentException("courseId is required");
+        }
+
+        List<CourseMaterialDTO> materials = courseMaterialService.getMaterialsByCourseId(courseId);
+        return ResponseEntity.ok(materials);
     }
 }
