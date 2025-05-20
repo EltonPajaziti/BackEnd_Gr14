@@ -1,7 +1,3 @@
-
-//PJESA E AUTORIZIMIT....
-//FILLIMISHT E KAM BO QE ME I LEJU TE GJITHA ENDPOINTS PRA MOS ME BO KUFIZIME
-//ne nje fare menyre eshte si mos me pas autorizim
 package org.backend.config;
 
 import org.springframework.context.annotation.Configuration;
@@ -18,13 +14,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable) // disable CSRF
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll() // lejon qasje në çdo endpoint pa autorizim
+                        .anyRequest().permitAll()
                 )
-                .formLogin(AbstractHttpConfigurer::disable); // mos përdor form login HTML
+                .formLogin(AbstractHttpConfigurer::disable);
 
         return http.build();
     }
 }
-

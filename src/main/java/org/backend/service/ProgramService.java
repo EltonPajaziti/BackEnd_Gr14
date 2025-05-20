@@ -63,17 +63,14 @@ public class ProgramService {
     }
 
 
-    public Program updateProgram(Long id, Program updatedProgram) {
-        Program program = programRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Program not found"));
-
-        program.setName(updatedProgram.getName());
-        program.setLevel(updatedProgram.getLevel());
-        program.setTenantID(updatedProgram.getTenantID());
-        program.setDepartment(updatedProgram.getDepartment());
-
-        return programRepository.save(program);
+    public Program updateProgram(Long id, ProgramCreateDTO dto) {
+        Program existing = programRepository.findById(id).orElseThrow();
+        existing.setName(dto.getName());
+        existing.setLevel(dto.getLevel());
+        existing.setDepartment(departmentRepository.findById(dto.getDepartmentId()).orElseThrow());
+        return programRepository.save(existing);
     }
+
     public void deleteProgram(Long id) {
         programRepository.deleteById(id);
     }

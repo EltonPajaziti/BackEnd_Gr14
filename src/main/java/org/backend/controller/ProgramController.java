@@ -12,8 +12,11 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/programs")
-@CrossOrigin(origins = "http://localhost:5173")
-
+@CrossOrigin(
+        origins = "http://localhost:5173",
+        methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS},
+        allowedHeaders = "*"
+)
 public class ProgramController {
 
     @Autowired
@@ -35,18 +38,17 @@ public class ProgramController {
 
 
 
-    // PUT update program
-/*
     @PutMapping("/{id}")
-    public ResponseEntity<Program> updateProgram(@PathVariable Long id, @RequestBody Program updatedProgram) {
+    public ResponseEntity<Program> updateProgram(@PathVariable Long id, @RequestBody ProgramCreateDTO dto) {
         try {
-            Program updated = programService.updateProgram(id, updatedProgram);
+            Program updated = programService.updateProgram(id, dto);
             return ResponseEntity.ok(updated);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
     }
-*/
+
+
 
     @PostMapping("/create")
     public Program createProgram(@RequestBody ProgramCreateDTO dto) {

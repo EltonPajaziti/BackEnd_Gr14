@@ -48,14 +48,15 @@ public class DepartmentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Department> updateDepartment(@PathVariable Long id, @RequestBody Department updateDepartment) {
+    public ResponseEntity<Department> updateDepartment(@PathVariable Long id, @RequestBody DepartmentCreateDTO dto) {
         try {
-            Department updated = departmentService.updateDepartment(id, updateDepartment);
+            Department updated = departmentService.updateDepartment(id, dto);
             return ResponseEntity.ok(updated);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
     }
+
     @GetMapping("/count/by-tenant/{tenantId}")
     public Long countDepartmentsByTenant(@PathVariable("tenantId") Long tenantId) {
         return departmentService.countDepartmentsByTenant(tenantId);

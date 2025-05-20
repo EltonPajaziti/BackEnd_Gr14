@@ -56,16 +56,21 @@ public class DepartmentService {
         return departmentRepository.save(department);
     }
 
-    public Department updateDepartment(Long id, Department updateDepartment){
+    public Department updateDepartment(Long id, DepartmentCreateDTO dto) {
         Department department = departmentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Departamenti nuk u gjet"));
+                .orElseThrow(() -> new RuntimeException("Department not found"));
 
-        department.setName(updateDepartment.getName());
+        department.setName(dto.getName());
 
+        if (dto.getTenantID() != null) {
+            Faculty faculty = facultyRepository.findById(dto.getTenantID())
+                    .orElseThrow(() -> new RuntimeException("Faculty not found"));
+            department.setTenantID(faculty);
+        }
 
         return departmentRepository.save(department);
-
     }
+
     public Long countDepartmentsByTenant(Long tenantId) {
         return departmentRepository.countByTenantID_Id(tenantId);
     }
