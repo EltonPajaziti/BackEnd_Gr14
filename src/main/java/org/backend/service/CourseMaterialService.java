@@ -11,6 +11,7 @@ import org.backend.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +87,11 @@ public class CourseMaterialService {
 
     // DTO logjika shtesë për frontend
 
-    @Transactional(readOnly = true)
+
+//    @Cacheable(value = "courseMaterials", key = "#courseId")  //CACHE
+@Cacheable(value = "courseMaterials", key = "T(java.lang.String).valueOf(#p0)") // CACHE
+
+@Transactional(readOnly = true)
     public List<CourseMaterialDTO> getMaterialsByCourseId(Long courseId) {
         List<CourseMaterial> materials = courseMaterialRepository.findByCourseId(courseId);
 
