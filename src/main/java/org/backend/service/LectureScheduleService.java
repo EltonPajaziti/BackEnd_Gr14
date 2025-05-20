@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+import org.springframework.cache.annotation.Cacheable;
 @Service
 public class LectureScheduleService {
 
@@ -28,6 +28,9 @@ public class LectureScheduleService {
         this.lectureScheduleRepository = lectureScheduleRepository;
         this.studentRepository = studentRepository;
     }
+
+
+    @Cacheable(value = "studentSchedule", key = "T(java.lang.String).valueOf(#p0) + '-' + T(java.lang.String).valueOf(#p1)")
 
     @Transactional(readOnly = true)
     public List<LectureScheduleDTO> getStudentSchedule(Long userId, Long tenantId) {

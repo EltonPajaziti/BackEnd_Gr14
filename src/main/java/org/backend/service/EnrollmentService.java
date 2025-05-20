@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+import org.springframework.cache.annotation.Cacheable;
 @Service
 public class EnrollmentService {
 
@@ -93,7 +93,7 @@ public class EnrollmentService {
     public void deleteEnrollment(Long id) {
         enrollmentRepository.deleteById(id);
     }
-
+    @Cacheable(value = "registeredCourses", key = "T(java.lang.String).valueOf(#p0)")
     public List<RegisteredCourseDTO> getRegisteredCoursesForStudent(Long studentId) {
         List<Enrollment> enrollments = enrollmentRepository.findByStudent_Id(studentId);
 
@@ -116,6 +116,11 @@ public class EnrollmentService {
         }).toList();
     }
 
+
+    @Cacheable(
+            value = "semesterCourses",
+            key = "#p0 + '-' + #p1" // studentId-semestri si çelës unik
+    )
     public List<CourseDTO> getRegisteredCoursesBySemester(Long studentId, int semester) {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new RuntimeException("Student not found"));
