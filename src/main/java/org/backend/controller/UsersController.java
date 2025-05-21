@@ -4,6 +4,7 @@ import org.backend.dto.UserCreateDTO;
 import org.backend.model.Users;
 import org.backend.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,6 +43,7 @@ public class UsersController {
         userService.deleteUser(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     public Users createUser(@RequestBody UserCreateDTO dto,
                             @RequestParam("tenantId") Long tenantId) {
