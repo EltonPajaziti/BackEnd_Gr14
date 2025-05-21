@@ -5,6 +5,7 @@ import org.backend.model.Student;
 import org.backend.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,6 +48,7 @@ public class StudentsController {
         return studentService.getStudentsByTenant(tenantId);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PROFESSOR')")
     @GetMapping("/count/by-tenant/{tenantId}")
     public long countStudentsByTenant(@PathVariable("tenantId") Long tenantId) {
         return studentService.countStudentsByTenant(tenantId);

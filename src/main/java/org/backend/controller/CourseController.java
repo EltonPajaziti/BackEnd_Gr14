@@ -4,6 +4,7 @@ import org.backend.model.Course;
 import org.backend.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -50,6 +51,8 @@ public class CourseController {
         return courseService.getCoursesByProgramId(programId);
     }
 
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'PROFESSOR')")
     @GetMapping("/count/by-tenant/{tenantId}")
     public Long countCoursesByTenant(@PathVariable("tenantId") Long tenantId) {
         return courseService.countCourseByTenant(tenantId);

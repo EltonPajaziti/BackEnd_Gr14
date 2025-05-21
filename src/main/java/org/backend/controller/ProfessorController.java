@@ -4,6 +4,7 @@ import org.backend.model.Professor;
 import org.backend.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,7 +44,7 @@ public class ProfessorController {
         professorService.deleteProfessor(id);
         return ResponseEntity.noContent().build();
     }
-
+    @PreAuthorize("hasAnyRole('ADMIN', 'PROFESSOR')")
     @GetMapping("/count/by-tenant/{tenantId}")
     public Long countProfessorsByTenant(@PathVariable("tenantId") Long tenantId) {
         return professorService.countProfessorsByTenant(tenantId);
