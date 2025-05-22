@@ -27,7 +27,7 @@ public class Course {
     @Column(name = "year_study")
     private Short yearStudy;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "program_id")
     private Program program;
 

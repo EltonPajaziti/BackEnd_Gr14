@@ -33,6 +33,7 @@ public class UsersController {
 //        return userService.createUser(user);
 //    }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public Users updateUser(@PathVariable Long id, @RequestBody Users user) {
         return userService.updateUser(id, user);
