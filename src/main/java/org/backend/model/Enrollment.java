@@ -10,10 +10,10 @@ public class Enrollment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "student_id", referencedColumnName = "id")
     private Student student;
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     private Course course;
     @Column(name = "enrollment_date", nullable = false)
@@ -21,11 +21,11 @@ public class Enrollment {
 //    @ManyToOne(optional = false, fetch = FetchType.LAZY)
 //    @JoinColumn(name = "academic_year", referencedColumnName = "id")
 //    private AcademicYear academicYear;
-@ManyToOne(optional = true, fetch = FetchType.LAZY)
-@JoinColumn(name = "academic_year", referencedColumnName = "id", nullable = true)
-private AcademicYear academicYear;
+    @ManyToOne
+    @JoinColumn(name = "academic_year", referencedColumnName = "id", nullable = true)
+    private AcademicYear academicYear;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "tenant_id", referencedColumnName = "id")
 
     private Faculty tenantID;

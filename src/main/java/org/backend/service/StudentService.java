@@ -2,10 +2,8 @@ package org.backend.service;
 
 import org.backend.dto.CourseDTO;
 import org.backend.mapper.CourseMapper;
-import org.backend.model.Course;
+import org.backend.model.*;
 import org.backend.model.Course_Professor;
-import org.backend.model.Course_Professor;
-import org.backend.model.Student;
 import org.backend.repository.CourseProfessorRepository;
 import org.backend.repository.CourseRepository;
 import org.backend.repository.EnrollmentRepository;
@@ -47,11 +45,27 @@ public class StudentService {
     }
 
     public Student updateStudent(Long id, Student updatedStudent) {
-        Student student = studentRepository.findById(id).orElseThrow();
-        student.setUser(updatedStudent.getUser());
-        student.setProgram(updatedStudent.getProgram());
-        student.setTenantID(updatedStudent.getTenantID());
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+
+
+        if (updatedStudent.getUser() != null && updatedStudent.getUser().getId() != null) {
+            Users user = student.getUser();
+            user.setFirstName(updatedStudent.getUser().getFirstName());
+            user.setLastName(updatedStudent.getUser().getLastName());
+            user.setEmail(updatedStudent.getUser().getEmail());
+        }
+
         student.setEnrollmentDate(updatedStudent.getEnrollmentDate());
+
+        if (updatedStudent.getProgram() != null && updatedStudent.getProgram().getId() != null) {
+            student.setProgram(updatedStudent.getProgram());
+        }
+
+        if (updatedStudent.getTenantID() != null && updatedStudent.getTenantID().getId() != null) {
+            student.setTenantID(updatedStudent.getTenantID());
+        }
+
         return studentRepository.save(student);
     }
 
