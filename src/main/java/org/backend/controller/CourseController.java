@@ -1,6 +1,7 @@
 package org.backend.controller;
 
 import org.backend.model.Course;
+import org.backend.repository.CourseRepository;
 import org.backend.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,9 @@ public class CourseController {
 
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private CourseRepository courseRepository;
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
@@ -44,9 +48,16 @@ public class CourseController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCourse(@PathVariable Long id) {
-        courseService.deleteCourse(id);
+    public ResponseEntity<?> deleteCourse(@PathVariable Long id) {
+        if (!courseRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        courseRepository.deleteById(id);
+        return ResponseEntity.ok().build();
     }
+
+
 
     @GetMapping("/program/{programId}")
     public List<Course> getCoursesByProgram(@PathVariable Long programId) {

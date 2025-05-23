@@ -30,6 +30,7 @@ public class ProfessorController {
     }
 
     @PostMapping
+
     public ResponseEntity<Professor> createProfessor(@RequestBody Professor professor) {
         return ResponseEntity.ok(professorService.createProfessor(professor));
     }
