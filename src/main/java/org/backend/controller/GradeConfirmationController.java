@@ -3,6 +3,7 @@ package org.backend.controller;
 import org.backend.model.GradeConfirmation;
 import org.backend.service.GradeConfirmationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -19,9 +20,12 @@ public class GradeConfirmationController {
     }
 
     @GetMapping("/{id}")
-    public GradeConfirmation getGradeConfirmationById(@PathVariable Long id) {
-        return gradeConfirmationService.getGradeConfirmationById(id).orElseThrow();
+    public ResponseEntity<GradeConfirmation> getGradeConfirmationById(@PathVariable Long id) {
+        return gradeConfirmationService.getGradeConfirmationById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
 
     @PostMapping
     public GradeConfirmation createGradeConfirmation(@RequestBody GradeConfirmation gradeConfirmation) {

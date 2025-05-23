@@ -4,6 +4,7 @@ import org.backend.dto.FacultyCreateDTO;
 import org.backend.model.Faculty;
 import org.backend.service.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,9 +23,12 @@ public class FacultyController {
     }
 
     @GetMapping("/{id}")
-    public Faculty getFacultyById(@PathVariable Long id) {
-        return facultyService.getFacultyById(id).orElseThrow();
+    public ResponseEntity<Faculty> getFacultyById(@PathVariable Long id) {
+        return facultyService.getFacultyById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
 
     @PostMapping("/create")
     public Faculty createFaculty(@RequestBody FacultyCreateDTO dto) {

@@ -39,8 +39,13 @@ public class StudentsController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteStudent(@PathVariable Long id) {
-        studentService.deleteStudent(id);
+    public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
+        try {
+            studentService.deleteStudent(id);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException ex) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/by-tenant/{tenantId}")
@@ -60,6 +65,7 @@ public class StudentsController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
     @GetMapping("/{studentId}/available-courses")
     public ResponseEntity<List<CourseDTO>> getAvailableCourses(
             @PathVariable("studentId") Long studentId,
@@ -67,6 +73,4 @@ public class StudentsController {
         List<CourseDTO> courses = studentService.getAvailableCourses(studentId, semester);
         return ResponseEntity.ok(courses);
     }
-
-
 }

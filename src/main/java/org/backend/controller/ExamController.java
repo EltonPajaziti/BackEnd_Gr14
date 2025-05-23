@@ -29,9 +29,10 @@ public class ExamController {
     }
 
     @GetMapping("/{id}")
-    public Exam getById(@PathVariable Long id) {
+    public ResponseEntity<Exam> getById(@PathVariable Long id) {
         return examService.getById(id)
-                .orElseThrow(() -> new RuntimeException("Exam not found"));
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping

@@ -21,9 +21,12 @@ public class ExamPeriodController {
     }
 
     @GetMapping("/{id}")
-    public Exam_Period getById(@PathVariable Long id) {
-        return examPeriodService.getById(id).orElseThrow();
+    public ResponseEntity<Exam_Period> getById(@PathVariable Long id) {
+        return examPeriodService.getById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
 
     @PostMapping
     public Exam_Period create(@RequestBody Exam_Period examPeriod) {
