@@ -26,6 +26,9 @@ public class UsersService {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
+    private ProfessorRepository professorRepository;
+
+    @Autowired
     private FacultyRepository facultyRepository;
 
     @Autowired
@@ -79,6 +82,15 @@ public class UsersService {
             student.setProgram(program);
 
             studentRepository.save(student);
+        }
+
+        if (role.getName().equalsIgnoreCase("PROFESSOR")) {
+            Professor professor = new Professor();
+            professor.setUser(savedUser);
+            professor.setTenantID(tenant);
+            professor.setHiredDate(LocalDate.now());
+            professor.setAcademicTitle("Prof. Dr.");
+            professorRepository.save(professor);
         }
 
         return savedUser;
