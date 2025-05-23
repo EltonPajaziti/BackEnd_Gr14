@@ -1,7 +1,7 @@
 package org.backend.model;
 
 import jakarta.persistence.*;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -39,6 +39,7 @@ public class Course {
     private String description;
 
     @Column(name = "created_at")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
