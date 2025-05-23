@@ -42,19 +42,45 @@ Sistemi përdor **JWT (JSON Web Tokens)** për autentikim dhe autorizim:
 
 ---
 
-## 🚀 Funksionalitete të mbuluara
 
-Sistemi përfshin **21 controller-a** funksionalë që mundësojnë:
+## 🚀 Funksionalitete të Mbuluara
 
-* Menaxhimin e studentëve, profesorëve dhe kurseve
-* Menaxhimin e fakulteteve, departamenteve dhe programeve studimore
-* Regjistrimin e kurseve nga studentët
-* Krijimin dhe menaxhimin e orarit të ligjëratave
-* Administrimin e provimeve dhe notave
-* Menaxhimin e aplikimeve për bursa dhe verifikimin e tyre nga administrata
-* Menaxhimin e roleve dhe përdoruesve të sistemit
-* Validim të plotë të të dhënave në nivel të DTO-ve
-* Trajtim të gabimeve dhe autorizim të sigurt në të gjitha endpoint-et
+Ky backend i Sistemit për Menaxhimin e Studentëve përfshin një gamë të gjerë funksionalitetesh të avancuara, të implementuara për të mbuluar të gjitha nevojat kyçe të sistemit, duke siguruar një eksperiencë të plotë dhe të sigurt për përdoruesit.
+
+### Funksionalitetet kryesore:
+
+* **Menaxhimi i entiteteve bazë**:
+  Menaxhimi i studentëve, profesorëve, kurseve, departamenteve, fakulteteve dhe programeve studimore me CRUD të plotë (Create, Read, Update, Delete).
+
+* **Regjistrimi dhe administrimi i kurseve**:
+  Studentët mund të regjistrohen në kurse përkatëse, ndërsa administratorët dhe profesorët menaxhojnë ofertën dhe orarin e ligjëratave.
+
+* **Orari i ligjëratave**:
+  Krijimi dhe menaxhimi i orareve për ligjërata, duke siguruar një planifikim të saktë dhe pa konflikte.
+
+* **Administrimi i provimeve dhe notave**:
+  Regjistrimi i provimeve, menaxhimi i rezultateve dhe notave të studentëve në mënyrë të sigurt dhe të saktë.
+
+* **Menaxhimi i aplikimeve për bursa**:
+  Studentët mund të aplikojnë për bursa, ndërsa administrata ka mundësinë të verifikojë dhe aprovojë aplikimet.
+
+* **Sistemi i përdoruesve dhe roleve**:
+  Administrimi i përdoruesve dhe rolave të tyre me autentikim dhe autorizim të bazuar në JWT për siguri maksimale.
+
+* **Validim dhe trajtim i gabimeve**:
+  Validim i plotë i të dhënave në nivel të DTO-ve për të siguruar cilësi dhe integritet të të dhënave, si dhe trajtim profesional i gabimeve dhe autorizimeve në të gjitha endpoint-et.
+
+* **Sistemi i migrimit të bazës së të dhënave**:
+  Menaxhimi i skemës së databazës me Flyway për migrime të automatizuara dhe të kontrolluara të strukturës së bazës së të dhënave.
+
+* **Dokumentimi i API-ve me Swagger UI**:
+  Dokumentim i plotë dhe interaktiv i API-ve, që mundëson testim të lehtë dhe eksplorim gjatë zhvillimit dhe integrimit me frontend-in.
+
+* **Siguria dhe performanca**:
+  Përdorim i mekanizmave të cache-it dhe arkitekturës Multi-Tenancy për performancë të lartë dhe shkallëzueshmëri, si dhe siguri e avancuar me Spring Security dhe JWT.
+
+* **Unit Test**:
+  Implementimi i testimeve automatike të njësive për pjesët kyçe të backend-it për të siguruar funksionim të qëndrueshëm dhe cilësi të lartë të kodit.
 
 ---
 
