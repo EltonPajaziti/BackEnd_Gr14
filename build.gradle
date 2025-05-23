@@ -18,23 +18,48 @@ repositories {
 }
 
 dependencies {
+    // Spring Boot Web
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // Spring Data JPA
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'mysql:mysql-connector-java:8.0.33' // ose versioni më i fundit
+
+    // MySQL Connector
+    implementation 'mysql:mysql-connector-java:8.0.33'
+
+    // Flyway për migracionet e bazës së të dhënave
     implementation 'org.flywaydb:flyway-mysql'
+
+    // Spring Doc OpenAPI
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+
+    // Spring Security
     implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // JSON Web Token (JWT)
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
-    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5' // për JSON parsing
-    implementation 'org.springframework.boot:spring-boot-starter-cache' // per CACHE
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
+    // Spring Cache
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+
+    // Hibernate Validator dhe Jakarta Validation API
+    implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
+    implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+
+    // Test dependencies
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testImplementation 'org.springframework.security:spring-security-test:6.0.0' // Shto këtë për WithMockUser dhe SecurityMockMvcRequestPostProcessors
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }
 
 tasks.withType(JavaCompile) {
