@@ -1,57 +1,109 @@
-# **Student Management System**
 
-Kjo është pjesa backend e Sistemit për Menaxhimin e Studentëve (SMS), e ndërtuar me Spring Boot. Ajo përfaqëson shtyllën logjike të aplikacionit tonë, duke trajtuar gjithë logjikën e biznesit, ruajtjen e të dhënave dhe sigurinë.
+# 📚 **Student Management System – SMS**
 
-## Teknologjitë që kemi përdorur:
+Ky është komponenti backend i **Student Management System (SMS)** – një aplikacion i zhvilluar me **Spring Boot**, i cili përfaqëson shtyllën logjike të sistemit tonë të menaxhimit të studentëve. Backend-i trajton logjikën e biznesit, menaxhimin e të dhënave, sigurinë, si dhe ofron API REST për konsumimin nga frontend-i.
 
--Java 17
--Spring Boot
--Spring Security 
--Spring Data JPA
--MySQL
--Flyway 
--Maven / Gradle
--Swagger 
+---
 
+## ⚙️ Teknologjitë e përdorura
 
-Backend-i përfshin gjithë funksionalitetin që i nevojitet një sistemi të menaxhimit të studentëve. Kemi krijuar një sërë controller-ash REST, të ndarë sipas entiteteve kryesore të sistemit, si: studentët, profesorët, kurset, programet, fakultetet, aplikimet për bursa dhe shumë të tjera.
+* **Java 17(21)**
+* **Spring Boot**
+* **Spring Security (JWT)**
+* **Spring Data JPA**
+* **MySQL**
+* **Flyway (Migrime databaze)**
+* **Maven / Gradle**
+* **Swagger UI**
 
-Kemi ndërtuar një sistem të plotë autentikimi dhe autorizimi duke përdorur JWT tokens. Pas login-it, përdoruesit marrin një token i cili ruhet në frontend dhe përdoret për të bërë thirrje të autorizuara ndaj API-ve.
+---
 
-Struktura e projektit është e organizuar sipas praktikave më të mira të Spring Boot:
+## 🧠 Arkitektura dhe Strukturimi
 
-    Në controller kemi të gjithë endpoint-et që frontend-i konsumon.
+Struktura e projektit ndjek praktikat më të mira të zhvillimit me Spring Boot:
 
-    Në dto kemi krijuar klasa të veçanta për të dërguar dhe pranuar të dhëna në mënyrë të sigurt dhe të kontrolluar.
+* `controller/` – Përmban 21 REST Controller të organizuar sipas entiteteve kryesore.
+* `dto/` – Përmban klasat DTO për transferimin dhe validimin e të dhënave ndërmjet shtresave.
+* `model/` – Përmban entitetet JPA që përfaqësojnë strukturën e tabelave në databazë.
+* `repository/` – Përmban interface-t që komunikojnë me databazën përmes Spring Data JPA.
+* `service/` – Përmban logjikën e biznesit që ndërmjetëson controller-at dhe repository-t.
+* `security/` – Përfshin konfigurimin e JWT, filtrat e sigurisë dhe menaxhimin e përdoruesve.
+* `resources/db/migration/` – Përmban skriptet SQL për Flyway për menaxhimin e versionimit të databazës.
 
-    Në model kemi entitetet që përfaqësojnë strukturën e databazës sonë.
+---
 
-    Në repository kemi interface-t që komunikojnë me databazën nëpërmjet JPA.
+## 🔐 Siguria dhe Autentikimi
 
-    Në service është logjika kryesore e biznesit, që përpunon kërkesat mes controller-it dhe repository-t.
+Sistemi përdor **JWT (JSON Web Tokens)** për autentikim dhe autorizim:
 
-    Në security është implementuar JWT, si dhe klasat për përdoruesit e personalizuar të sistemit.
+* Përdoruesit regjistrohen dhe autentikohen përmes endpoint-eve përkatëse.
+* Pas login-it, gjenerohet një JWT që përdoret për thirrjet ndaj API-ve të mbrojtura.
+* Mbështeten role të ndryshme (Admin, Student, Profesor), me kontroll të aksesit sipas rolit.
 
-    Për migrime databaze kemi përdorur Flyway, duke ruajtur skedarët SQL në resources/db/migration.
+---
 
-## Funksionalitetet kryesore të implementuara
+## 🚀 Funksionalitete të mbuluara
 
-Kemi ndërtuar më shumë se 15 kontrolle të ndryshme që përfshijnë:
+Sistemi përfshin **21 controller-a** funksionalë që mundësojnë:
 
--Regjistrimin dhe menaxhimin e kurseve
--Menaxhimin e studentëve dhe profesorëve
--Orarin e ligjëratave
--Administrimin e provimeve dhe notave
--Menaxhimin e departamenteve dhe fakulteteve
--Aplikimet për bursa dhe konfirmimin e tyre nga admini
--Përdoruesit dhe rolet e tyre
--Çdo funksionalitet është testuar dhe trajton me kujdes rastet e gabimeve, si kërkesat e pavlefshme, autorizimet dhe validimet në nivel të DTO.
+* Menaxhimin e studentëve, profesorëve dhe kurseve
+* Menaxhimin e fakulteteve, departamenteve dhe programeve studimore
+* Regjistrimin e kurseve nga studentët
+* Krijimin dhe menaxhimin e orarit të ligjëratave
+* Administrimin e provimeve dhe notave
+* Menaxhimin e aplikimeve për bursa dhe verifikimin e tyre nga administrata
+* Menaxhimin e roleve dhe përdoruesve të sistemit
+* Validim të plotë të të dhënave në nivel të DTO-ve
+* Trajtim të gabimeve dhe autorizim të sigurt në të gjitha endpoint-et
 
-Për testimin e API-ve, kemi integruar Swagger UI, i cili është i aksesueshëm gjatë zhvillimit të aplikacionit. Kjo na ka ndihmuar jashtëzakonisht shumë për të testuar endpoint-et që kemi ndërtuar dhe për të dokumentuar saktë mënyrën e përdorimit të secilit prej tyre. Kjo ndërfaqe grafike e thjeshton shumë komunikimin mes zhvilluesve dhe përdoruesve të API-së, sidomos gjatë fazës së integrimit me frontend-in.
+---
 
-Për të nisur backend-in në mënyrë lokale, së pari duhet të klonohet projekti nga repozitori përkatës. Më pas, projekti mund të hapet në një IDE si IntelliJ IDEA ose VS Code. Është e rëndësishme të sigurohemi që databaza MySQL është aktive dhe funksionale. Pasi të jetë bërë kjo, duhet të konfigurohen kredencialet e databazës në skedarin application.properties ose application.yml, varësisht nga mënyra e konfigurimit që përdor projekti. Aplikacioni më pas mund të nisë duke ekzekutuar klasën BackEndApplication.java si një Spring Boot App.
+## 🧪 Testim & Dokumentim
 
-Menaxhimi i versioneve të databazës bëhet përmes Flyway, i cili automatikisht ekzekuton skedarët SQL që ndodhen në dosjen resources/db/migration, duke krijuar të gjitha tabelat dhe ndryshimet e nevojshme në databazë pa ndërhyrje manuale.
+Për testim dhe eksplorim të API-ve gjatë zhvillimit është integruar **Swagger UI**, i cili ofron:
 
-## Backend-i është në një gjendje plotësisht funksionale dhe është testuar me sukses. Ai është lidhur me frontend-in përmes API-ve REST dhe mbështet të gjithë skenarët kryesorë të përdorimit që kemi parashikuar në projekt, duke përfshirë menaxhimin e përdoruesve, kurseve, regjistrimeve, notave, bursave dhe më shumë.
+* Dokumentim automatik të të gjitha endpoint-eve REST
+* Mundësi për të testuar interaktivisht API-të direkt nga ndërfaqja grafike
+* Lehtësi në komunikimin mes zhvilluesve të backend-it dhe frontend-it
 
+---
+
+## 🔧 Si ta nisni projektin lokalisht
+
+1. **Kloni projektin** nga repozitori përkatës.
+2. Hapeni në një IDE si **IntelliJ IDEA** ose **VS Code**.
+3. Sigurohuni që MySQL është i instaluar dhe aktiv.
+4. Konfiguroni kredencialet në `application.properties` ose `application.yml`.
+5. Ekzekutoni klasën kryesore `BackEndApplication.java` si një Spring Boot Application.
+6. Flyway do të aplikojë automatikisht migrimet SQL në databazë nga `resources/db/migration`.
+
+---
+
+## 🗃️ Migrimet e Databazës
+
+Migrimi i databazës realizohet në mënyrë automatike përmes **Flyway**, duke siguruar që të gjitha versionet e strukturës së databazës janë të sinkronizuara me kodin. Çdo ndryshim ruhet si një skedar SQL i versionuar në `resources/db/migration`.
+
+---
+
+## ✅ Statusi i Projektit
+
+Backend-i është plotësisht funksional dhe i testuar, i gatshëm për përdorim me frontend-in përmes API-ve REST. Mbështet skenarë të ndryshëm të përdorimit, përfshirë:
+
+* Regjistrimin e përdoruesve
+* Menaxhimin e entiteteve të sistemit (studentë, profesorë, kurse, nota, etj.)
+* Autentikim të sigurt me JWT
+* Akses të kontrolluar sipas rolit
+* Testim dhe dokumentim të API-ve me Swagger
+
+---
+
+## 📩 Kontributet
+
+Ky projekt është rezultat i punës së përbashkët të ekipit tonë dhe çdo përmirësim apo ide e re është gjithmonë e mirëpritur. 
+### Anëtarët e Grupit:
+
+* Adrian Mehaj
+* Elton Pajaziti
+* Leutrim Hajdini
+* Isma Klinaku
+* Zana Shabani
