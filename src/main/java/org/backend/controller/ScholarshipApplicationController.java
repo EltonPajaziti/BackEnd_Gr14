@@ -28,9 +28,10 @@ public class ScholarshipApplicationController {
     }
 
     @GetMapping("/{id}")
-    public ScholarshipApplication getById(@PathVariable Long id) {
+    public ResponseEntity<ScholarshipApplication> getById(@PathVariable Long id) {
         return scholarshipApplicationService.getById(id)
-                .orElseThrow(() -> new RuntimeException("Scholarship application not found"));
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping

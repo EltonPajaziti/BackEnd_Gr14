@@ -3,6 +3,7 @@ package org.backend.controller;
 import org.backend.model.Grade;
 import org.backend.service.GradeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -18,9 +19,12 @@ public class GradeController {
     }
 
     @GetMapping("/{id}")
-    public Grade getGradeById(@PathVariable Long id) {
-        return gradeService.getGradeById(id).orElseThrow();
+    public ResponseEntity<Grade> getGradeById(@PathVariable Long id) {
+        return gradeService.getGradeById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
 
     @PostMapping
     public Grade createGrade(@RequestBody Grade grade) {
