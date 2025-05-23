@@ -28,9 +28,10 @@ public class FAQController {
     }
 
     @GetMapping("/{id}")
-    public FAQ getById(@PathVariable Long id) {
+    public ResponseEntity<FAQ> getById(@PathVariable Long id) {
         return faqService.getById(id)
-                .orElseThrow(() -> new RuntimeException("FAQ not found"));
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
